@@ -539,7 +539,7 @@ C
           DO K=1,2
             XYT1(K,NC1JI)=XYT(K,NCJI)
           END DO
-		END DO
+        END DO
       END DO
 C
       DO I=NL(8,1),NE1
@@ -552,7 +552,7 @@ C
           DO K=1,2
             XYT1(K,NC1JI)=XYT(K,NCJI)
           END DO
-  		END DO
+        END DO
       END DO
 C
       NE11=NE1+1
@@ -580,7 +580,7 @@ C
           DO K=1,2
             XYT1(K,NC1JI)=XYT(K,NCJI)
           END DO
-		END DO
+        END DO
       END DO
 C
       DO I=NL(9,1),NE5
@@ -591,8 +591,8 @@ C
           NCJI=NC(J,I)
           DO K=1,2
             XYT1(K,NC1JI)=XYT(K,NCJI)
-		  END DO
-		END DO
+          END DO
+        END DO
       END DO
 C
       NNOD=NNOD+NDEL
