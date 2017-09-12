@@ -60,10 +60,10 @@ C
      *19X,'KOãàóECTBO  ìáãOB  Kù ',13X,'NNOD=',I4/
      *19X,'òàPàHA ãEHTõ MATPàñõ',15X,'LH  =',I4//)
 C
-	IF(JNKEL.NE.0) THEN
-	   ZJUPR =0
-	   ZJSR=0
-	END IF
+      IF(JNKEL.NE.0) THEN
+         ZJUPR =0
+         ZJSR=0
+      END IF
 C
       DO I=1,NEL
          DO J=1,4
@@ -288,7 +288,7 @@ C
       IF(A1.GE.F1) RETURN
 C
       AL=ACOS(A1/F1)
-	if(al.lt.almax) return
+      if(al.lt.almax) return
       IF((R(1)*DR(1)+R(2)*DR(2)).LT.0.0) AL=0.0
       RETURN
       END
@@ -479,7 +479,7 @@ C----------------------------------------------------------------------
      */MDF/ T0,ES,AA,AN,RR0,AK0,ETA,AN1
      */bljint/jnkont,jnkel,jkel(50),jks(50),jkf(50),www(4,110),zjint(10)
      */bllamb/alambd(4,110)
-	*/blj/zjsr,zjupr
+     */blj/zjsr,zjupr
 C
       DIMENSION E(2),U(550),SXZ(550),SYZ(550),SI(550),rrr(4),zzz(4),
      *          alamb(550),tau(2,4),xksi(4),xeta(4),yksi(4),yeta(4)
@@ -627,12 +627,12 @@ c
             zjsr=zjsr+zjint(i+jnkont)
          end do
          zjsr=zjsr/(2*(jnkont-1))
-	   IF(ITEOR.NE.0.and.iii.eq.1) THEN
-	      do i=1,2*jnkont
-	         zjint(i)=zjint(i)/zjupr
-	      end do
-	      zjsr=zjsr/zjupr
-	   END IF
+         IF(ITEOR.NE.0.and.iii.eq.1) THEN
+            do i=1,2*jnkont
+               zjint(i)=zjint(i)/zjupr
+            end do
+            zjsr=zjsr/zjupr
+         END IF
          do i=1,jnkont
             print *,'kontur=',2*i-1,'   Jint=',zjint(i),'  ',(zjint(i)-
      *             zjsr)/zjsr*100,' %'
@@ -640,14 +640,14 @@ c
      *            (zjint(i+jnkont)-zjsr)/zjsr*100,' %'
          end do
          print *,'  Jstab=',zjsr
-	   if(ipr.eq.1) then
-	            OPEN(85,FILE='JINT.DAT')
-	            do i=1,jnkont
-	               write(85,*) 2*i-1,zjint(i),zjsr
-	               write(85,*) 2*i,zjint(i+jnkont),zjsr
-	            end do
-	            CLOSE(85)
-	   end if
+         if(ipr.eq.1) then
+                  OPEN(85,FILE='JINT.DAT')
+                  do i=1,jnkont
+                     write(85,*) 2*i-1,zjint(i),zjsr
+                     write(85,*) 2*i,zjint(i+jnkont),zjsr
+                  end do
+                  CLOSE(85)
+         end if
       end if
       do i=1,4
          do j=1,nel
@@ -748,7 +748,7 @@ C----------------------------------------------------------------------
      */MDF/T0,ES,ADA,AN,RR0,AK0,ETA,AN1
      */BLTEOR/ ITEOR
      */bljint/jnkont,jnkel,jkel(50),jks(50),jkf(50),www(4,110),zjint(10)
-	*/blj/zjsr,zjupr
+     */blj/zjsr,zjupr
 C
       DIMENSION E(2),A0(3,10),s(2),r(2)
 C
@@ -806,7 +806,7 @@ C
    40 CONTINUE
 C
       CALL APDRES(0,1,1,1,1,1,0,0,0)
-	    ZJUPR=ZJSR
+          ZJUPR=ZJSR
 C
       RETURN
       END

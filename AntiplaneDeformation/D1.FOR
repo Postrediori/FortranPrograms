@@ -47,7 +47,7 @@ C
            X(2,3*J-2)=XZ1
            X(3,3*J-2)=XZ1
            X(4,3*J-2)=0.0
-	     IF(IPROB.EQ.3) THEN
+           IF(IPROB.EQ.3) THEN
                X(2,3*J-2)=XZ1+ZONE/2.*(1.0-AKOEF)
                X(3,3*J-2)=XZ1+ZONE/2.*(1.0-AKOEF)
            END IF
@@ -56,23 +56,23 @@ C
            X(2,3*J-1)=XZ1+ZONE
            X(3,3*J-1)=XZ1+ZONE
            X(4,3*J-1)=XZ1
-	     IF(IPROB.EQ.3)THEN
+           IF(IPROB.EQ.3)THEN
                X(1,3*J-1)=XZ1+ZONE/2.*(1.0-AKOEF)
                X(2,3*J-1)=XZ1+ZONE/2.*(1.0+AKOEF)
                X(3,3*J-1)=XZ1+ZONE/2.*(1.0+AKOEF)
                X(4,3*J-1)=XZ1+ZONE/2.*(1.0-AKOEF)
-	     END IF
+           END IF
 C
            X(1,3*J)=XZ1+ZONE
            X(2,3*J)=XZ1+ZONE+XZ2
            X(3,3*J)=XZ1+ZONE+XZ2
            X(4,3*J)=XZ1+ZONE
-	     IF(IPROB.EQ.3) THEN
+           IF(IPROB.EQ.3) THEN
                X(1,3*J)=XZ1+ZONE/2.*(1.0+AKOEF)
                X(2,3*J)=XZ1+ZONE+XZ2
                X(3,3*J)=XZ1+ZONE+XZ2
                X(4,3*J)=XZ1+ZONE/2.*(1.0+AKOEF)
-	     END IF
+           END IF
     1 CONTINUE
 C
       DO 2 I=1,LM
@@ -192,32 +192,32 @@ C
       CALL XREG( MM,NN,LM,LN,NF,X,Y,ISF,NSF,NUFD,NLD,ZONE,
      *          KLIN,ALFA,X0,Y0,R,IM,AKOEF,   NUF,NL,NEL,NNOD)
 C
-	if(iprob.ne.3) then
-	   if(im.eq.0) then
+      if(iprob.ne.3) then
+         if(im.eq.0) then
             itope(1)=nl(5,1)+3
-	      itope(2)=nl(5,1)+7
-	      itope(3)=nl(5,1)+11
-	      itope(4)=nl(5,1)+15
-	      itope(5)=nl(8,1)+3
-	      itope(6)=nl(8,1)+7
-	      itope(7)=nl(8,1)+11
-	      itope(8)=nl(8,1)+15
-	      itopu=nuf(8,1)+8
-	               else 
+            itope(2)=nl(5,1)+7
+            itope(3)=nl(5,1)+11
+            itope(4)=nl(5,1)+15
+            itope(5)=nl(8,1)+3
+            itope(6)=nl(8,1)+7
+            itope(7)=nl(8,1)+11
+            itope(8)=nl(8,1)+15
+            itopu=nuf(8,1)+8
+                     else 
             itope(1)=nl(5,1)+4
-	      itope(2)=nl(5,1)+9
-	      itope(3)=nl(5,1)+14
-	      itope(4)=nl(5,1)+19
-	      itope(5)=nl(8,1)+4
-	      itope(6)=nl(8,1)+9
-	      itope(7)=nl(8,1)+14
-	      itope(8)=nl(8,1)+19
-	      itopu=nuf(8,1)+10
-	   end if
-	end if
+            itope(2)=nl(5,1)+9
+            itope(3)=nl(5,1)+14
+            itope(4)=nl(5,1)+19
+            itope(5)=nl(8,1)+4
+            itope(6)=nl(8,1)+9
+            itope(7)=nl(8,1)+14
+            itope(8)=nl(8,1)+19
+            itopu=nuf(8,1)+10
+         end if
+      end if
 c	print *,(itope(i),i=1,8),itopu
 C
-	jnkel=0
+      jnkel=0
       if(iprob.eq.1) then
          jnkel=16
          if(im.eq.1) jnkel=20
@@ -245,7 +245,7 @@ C
       NNN=NNOD
 C
       IF(IPROB.eq.1.or.iprob.eq.2) then
-	   CALL XCRACK(NL,NUF,NEL,NNOD,MM,NN,IM)
+         CALL XCRACK(NL,NUF,NEL,NNOD,MM,NN,IM)
 C
          IF(IPROB.eq.2) then
              LNKL=LN/2
@@ -264,7 +264,7 @@ C
              CALL XREG( MM,NN,LM,LNKL,NFKL,X,Y,ISF,NSF,NUFD,NLD,ZONE,
      *         KLIN,ALFA,X0,Y0,R,IM,AKOEF,   NUFKL,NLKL,NELKL,NNODKL)
         end if
-	end if
+      end if
 C
       LH=0
       DO 220 I=1,NEL
@@ -518,7 +518,7 @@ C
       XYT1(K,NC1JI)=XYT(K,NCJI)
     3 CONTINUE
 C
-	NE11=NL(8,1)-1
+      NE11=NL(8,1)-1
       DO 41 I=NE,NE11
       DO 41 J=1,3
       NC1(J,I)=NC(J,I)+NALL
@@ -528,7 +528,7 @@ C
       XYT1(K,NC1JI)=XYT(K,NCJI)
    41 CONTINUE
 C
-	NE11=NL(8,1)-1
+      NE11=NL(8,1)-1
       DO 42 I=NE,NE11
       DO 42 J=4,8
       NC1(J,I)=NC(J,I)+NDEL
@@ -551,7 +551,7 @@ C
       DO 5 I=NL(8,1),NE1
       DO 5 J=1,8
       IF(J.EQ.3.OR.J.EQ.4.OR.J.EQ.5) GO TO 5
-	IF(I.EQ.NE1.AND.(J.EQ.6.OR.J.EQ.7)) GO TO 5
+      IF(I.EQ.NE1.AND.(J.EQ.6.OR.J.EQ.7)) GO TO 5
       NC1(J,I)=NC(J,I)+NDEL
       NC1JI=NC1(J,I)
       NCJI=NC(J,I)
@@ -571,11 +571,11 @@ C
       XYT1(K,NC1JI)=XYT(K,NCJI)
     6 CONTINUE
 C
-	NE11=NE3+1
+      NE11=NE3+1
       DO 7 I=NE11,NE4
       DO 7 J=1,8
       IF(J.EQ.1.OR.J.EQ.7.OR.J.EQ.8) GO TO 7
-	IF(I.EQ.NE4.AND.(J.EQ.5.OR.J.EQ.6)) GO TO 7
+      IF(I.EQ.NE4.AND.(J.EQ.5.OR.J.EQ.6)) GO TO 7
       NC1(J,I)=NC(J,I)+NDEL
       NC1JI=NC1(J,I)
       NCJI=NC(J,I)

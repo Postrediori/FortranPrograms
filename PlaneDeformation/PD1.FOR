@@ -269,7 +269,7 @@ C
       END DO
       do i=1,2*jnkont
          zjint(i)=0.0
-	   zjinty(i)=0.0
+         zjinty(i)=0.0
       end do
       jelem=1
       DO II=1,NEL
@@ -329,9 +329,9 @@ C
               w1=www(1,ii)
               w2=www(3,ii)
               dux1=eps(1,1)
-	        dux2=eps(1,3)
+              dux2=eps(1,3)
               duy1=eps(2,1)
-	        duy2=eps(2,3)
+              duy2=eps(2,3)
               dvx1=dvx(1)
               dvx2=dvx(3)
               dvy1=dvy(1)
@@ -363,7 +363,7 @@ C
               dux1=eps(1,2)
               dux2=eps(1,4)
               duy1=eps(2,2)
-	        duy2=eps(2,4)
+              duy2=eps(2,4)
               dvx1=dvx(2)
               dvx2=dvx(4)
               dvy1=dvy(2)
@@ -390,7 +390,7 @@ C
      -                    (sxy2*duy2+sxx2*dvy2)*yksi2 )
               zji(jn+jnkont)=sqrt(zjint(jn+jnkont)*zjint(jn+jnkont)+
      +			             zjinty(jn+jnkont)*zjinty(jn+jnkont))
-			jelem=jelem+1
+      		jelem=jelem+1
          end if
          if(ip.eq.0.and.ii.eq.10) then
              write(31,*) eps(2,1),sigma(2,1)
@@ -402,22 +402,22 @@ C
       close(72)
       close(73)
       close(74)
-	if(jnkel.ne.0) then
+      if(jnkel.ne.0) then
          zjsr=0.0
-	   do i=1,jnkont-1
-	      zjsr=zjsr+zji(i)
-	      zjsr=zjsr+zji(i+jnkont)
-	   end do
-	   zjsr=zjsr/(2*(jnkont-1))
-	   do i=1,jnkont
+         do i=1,jnkont-1
+            zjsr=zjsr+zji(i)
+            zjsr=zjsr+zji(i+jnkont)
+         end do
+         zjsr=zjsr/(2*(jnkont-1))
+         do i=1,jnkont
             print *,'kontur=',2*i-1,'   Jint=',zji(i),'  ',(zji(i)-
      *             zjsr)/zjsr*100,' %'  	     
             print *,'kontur=',2*i,'   Jint=',zji	(i+jnkont),' ',
-	*            (zji(i+jnkont)-zjsr)/zjsr*100,' %'  	     
+     *            (zji(i+jnkont)-zjsr)/zjsr*100,' %'  	     
          end do
-	   print *,''  
-	   print *,'                     Jstab=',zjsr
-	end if
+         print *,''  
+         print *,'                     Jstab=',zjsr
+      end if
 c      do i=1,jnkont
 c         print *,'kontur=',2*i-1,'   Jint=',zjint(i)
 c         print *,'kontur=',2*i,'   Jint=',zjint(i+jnkont)
@@ -441,7 +441,7 @@ c      end do
          IF(SIMAX.LT.SI(I)) SIMAX=SI(I)
       END DO
       PRINT *,'                     SImax=',SIMAX/(sqrt(2.0)*t0)
-	print *,''
+      print *,''
       DO I=1,NNOD
          SI(I)=SI(I)/(sqrt(2.0)*T0)
       END DO
@@ -521,11 +521,11 @@ c	mzd(3)=2*(ncentr+2*kol+2*mm(3))
       MZD(1)=2*NCENTR-1
       do i=1,nz-1
          mzd(1+i)=2*(ncentr+i-1)
-	end do
+      end do
       IF(IPROB.EQ.3) THEN
          MZD(1)=1
-	   MZD(2)=2
-	END IF
+         MZD(2)=2
+      END IF
       GO TO 50
 C
    10 IF(K.EQ.2) GO TO 20
@@ -536,7 +536,7 @@ C
       DO 2 L=1,NZ
     2 MZD(L)=2*L
       NZ=NZ+1
-	mzd(nz)=1
+      mzd(nz)=1
 c	nz=23
 c	mzd(1)=288
 c	mzd(2)=290
@@ -569,15 +569,15 @@ C
       NZ=NZ+2
       N=0
       DO 4 L=1,4
-	NNN=NN(L)*2+1
+      NNN=NN(L)*2+1
       NF=3*(L-1)+1
       DO 4 M=2,NNN
-	N=N+1
-	m1=m
-	if(iprob.ne.3.and.l.eq.3.and.m.eq.2) m1=1
+      N=N+1
+      m1=m
+      if(iprob.ne.3.and.l.eq.3.and.m.eq.2) m1=1
     4 MZD(N)=2*NUF(NF,M1)-1-2
       mzd(n+1)=nnod*2-1
-	mzd(n+2)=nnod*2
+      mzd(n+2)=nnod*2
    50 RETURN
       END
 C

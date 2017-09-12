@@ -126,7 +126,7 @@ C
       NC(3,NEK+12)=N3+4
       NC(4,NEK+12)=N2+24
       NC(5,NEK+12)=N2+25
-	NC(6,NEK+12)=N2+33
+      NC(6,NEK+12)=N2+33
       NC(7,NEK+12)=N1+14
       NC(8,NEK+12)=N1+15
 C
@@ -219,7 +219,7 @@ C
       N3=NUF(NF,3)
 C
       NC(1,NEK)=N3
-	NC(2,NEK)=N2
+      NC(2,NEK)=N2
       NC(3,NEK)=N1
       NC(4,NEK)=N1+1
       NC(5,NEK)=N1+2
@@ -279,7 +279,7 @@ C
       NC(5,NEK+6)=N2+8
       NC(6,NEK+6)=N2+15
       NC(7,NEK+6)=N2+21
-	NC(8,NEK+6)=N2+20
+      NC(8,NEK+6)=N2+20
 C
       NC(1,NEK+7)=N2+21
       NC(2,NEK+7)=N2+15
@@ -313,7 +313,7 @@ C
       NC(3,NEK+10)=N3+2
       NC(4,NEK+10)=N2+18
       NC(5,NEK+10)=N2+19
-	NC(6,NEK+10)=N2+27
+      NC(6,NEK+10)=N2+27
       NC(7,NEK+10)=N2+32
       NC(8,NEK+10)=N2+31
 C
@@ -667,7 +667,7 @@ C
       GO TO 4
 C
     2 IF(IQUADR.NE.3) GO TO 3
-	ANGL1=(ANGL-180.0)/180.0*3.14159
+      ANGL1=(ANGL-180.0)/180.0*3.14159
       CO=COS(ANGL1)
       SI=SIN(ANGL1)
       XYT(1,NOM)=X0-R1*CO

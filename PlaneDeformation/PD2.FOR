@@ -51,12 +51,12 @@ C
       PP(2,I)=PP(2,NEP+I)
       PT(1,I)=PT(1,NEP+I)
     1 PT(2,I)=PT(2,NEP+I)
-	if(ltwo.eq.1) then
+      if(ltwo.eq.1) then
          do i=(nep1/2+1),nep1,2
             pp(1,i)=-pp(1,i)
             pp(2,i)=-pp(2,i)
-	   end do
-	end if
+         end do
+      end if
       NEP=NEP1
       DO 582 I=1,NN
   582 A1(I)=0.0
