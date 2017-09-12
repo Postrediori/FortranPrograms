@@ -1,0 +1,716 @@
+      SUBROUTINE XELR4(NF,X0,Y0,ZONE,R,X,Y,NL,NUF)
+C----------------------------------------------------------------------
+C   PAáÅàEHàE HA KOHEóHõE ùãEMEHTõ îPAÉMEHTA èOÑ OTBEPCTàEM
+C----------------------------------------------------------------------
+      COMMON
+     */AL2/XYT(2,550)
+     */AL2A/NC(8,110)
+C
+      DIMENSION Y(4,12),X(4,12),NUF(12,30),NL(12,10)
+C
+      NEK=NL(NF,1)
+      NEM=NL(NF,2)
+      N1=NUF(NF,1)
+      N2=NUF(NF,2)
+      N3=NUF(NF,3)
+      N4=NUF(NF,4)
+      N5=NUF(NF,5)
+C
+      NC(1,NEK)=N1
+      NC(2,NEK)=N1
+      NC(3,NEK)=N1
+      NC(4,NEK)=N3+1
+      NC(5,NEK)=N3+2
+      NC(6,NEK)=N4+13
+      NC(7,NEK)=N3
+      NC(8,NEK)=N2
+C
+      NC(1,NEK+1)=N3+2
+      NC(2,NEK+1)=N3+3
+      NC(3,NEK+1)=N3+4
+      NC(4,NEK+1)=N4+14
+      NC(5,NEK+1)=N4+6
+      NC(6,NEK+1)=N4+5
+      NC(7,NEK+1)=N3
+      NC(8,NEK+1)=N4+13
+C
+      NC(1,NEK+2)=N3+4
+      NC(2,NEK+2)=N3+5
+      NC(3,NEK+2)=N3+6
+      NC(4,NEK+2)=N4+15
+      NC(5,NEK+2)=N4+8
+      NC(6,NEK+2)=N4+7
+      NC(7,NEK+2)=N4+6
+      NC(8,NEK+2)=N4+14
+C
+      NC(1,NEK+3)=N3+6
+      NC(2,NEK+3)=N3+7
+      NC(3,NEK+3)=N3+8
+      NC(4,NEK+3)=N4+16
+      NC(5,NEK+3)=N4+10
+      NC(6,NEK+3)=N4+9
+      NC(7,NEK+3)=N4+8
+      NC(8,NEK+3)=N4+15
+C
+      NC(1,NEK+4)=N3+8
+      NC(2,NEK+4)=N3+9
+      NC(3,NEK+4)=N3+10
+      NC(4,NEK+4)=N4+17
+      NC(5,NEK+4)=N4+12
+      NC(6,NEK+4)=N4+11
+      NC(7,NEK+4)=N4+10
+      NC(8,NEK+4)=N4+16
+C
+      NC(1,NEK+5)=N1
+      NC(2,NEK+5)=N1+1
+      NC(3,NEK+5)=N1+2
+      NC(4,NEK+5)=N1+2
+      NC(5,NEK+5)=N1+2
+      NC(6,NEK+5)=N3+11
+      NC(7,NEK+5)=N3+2
+      NC(8,NEK+5)=N3+1
+C
+      NC(1,NEK+6)=N3+2
+      NC(2,NEK+6)=N3+11
+      NC(3,NEK+6)=N1+2
+      NC(4,NEK+6)=N2+1
+      NC(5,NEK+6)=N2+2
+      NC(6,NEK+6)=N3+12
+      NC(7,NEK+6)=N3+4
+      NC(8,NEK+6)=N3+3
+C
+      NC(1,NEK+7)=N3+4
+      NC(2,NEK+7)=N3+12
+      NC(3,NEK+7)=N2+2
+      NC(4,NEK+7)=N2+3
+      NC(5,NEK+7)=N2+4
+      NC(6,NEK+7)=N3+13
+      NC(7,NEK+7)=N3+6
+      NC(8,NEK+7)=N3+5
+C
+      NC(1,NEK+8)=N3+6
+      NC(2,NEK+8)=N3+13
+      NC(3,NEK+8)=N2+4
+      NC(4,NEK+8)=N2+5
+      NC(5,NEK+8)=N2+6
+      NC(6,NEK+8)=N3+14
+      NC(7,NEK+8)=N3+8
+      NC(8,NEK+8)=N3+7
+C
+      NC(1,NEK+9)=N2+6
+      NC(2,NEK+9)=N2+7
+      NC(3,NEK+9)=N2+8
+      NC(4,NEK+9)=N3+15
+      NC(5,NEK+9)=N3+10
+      NC(6,NEK+9)=N3+9
+      NC(7,NEK+9)=N3+8
+      NC(8,NEK+9)=N3+14
+C
+      NC(1,NEK+10)=N1+2
+      NC(2,NEK+10)=N1+3
+      NC(3,NEK+10)=N1+4
+      NC(4,NEK+10)=N2+13
+      NC(5,NEK+10)=N2+14
+      NC(6,NEK+10)=N2+9
+      NC(7,NEK+10)=N2+2
+      NC(8,NEK+10)=N2+1
+C
+      NC(1,NEK+11)=N2+2
+      NC(2,NEK+11)=N2+9
+      NC(3,NEK+11)=N2+14
+      NC(4,NEK+11)=N2+15
+      NC(5,NEK+11)=N2+16
+      NC(6,NEK+11)=N2+10
+      NC(7,NEK+11)=N2+4
+      NC(8,NEK+11)=N2+3
+C
+      NC(1,NEK+12)=N2+4
+      NC(2,NEK+12)=N2+10
+      NC(3,NEK+12)=N2+16
+      NC(4,NEK+12)=N2+17
+      NC(5,NEK+12)=N2+18
+      NC(6,NEK+12)=N2+11
+      NC(7,NEK+12)=N2+6
+      NC(8,NEK+12)=N2+5
+C
+      NC(1,NEK+13)=N2+6
+      NC(2,NEK+13)=N2+11
+      NC(3,NEK+13)=N2+18
+      NC(4,NEK+13)=N2+19
+      NC(5,NEK+13)=N2+20
+      NC(6,NEK+13)=N2+12
+      NC(7,NEK+13)=N2+8
+      NC(8,NEK+13)=N2+7
+C
+      NC(1,NEK+14)=N2+18
+      NC(2,NEK+14)=N2+22
+      NC(3,NEK+14)=N2+27
+      NC(4,NEK+14)=N2+26
+      NC(5,NEK+14)=N2+25
+      NC(6,NEK+14)=N2+21
+      NC(7,NEK+14)=N2+20
+      NC(8,NEK+14)=N2+19
+C
+      NC(1,NEK+15)=N2+16
+      NC(2,NEK+15)=N2+23
+      NC(3,NEK+15)=N2+29
+      NC(4,NEK+15)=N2+28
+      NC(5,NEK+15)=N2+27
+      NC(6,NEK+15)=N2+22
+      NC(7,NEK+15)=N2+18
+      NC(8,NEK+15)=N2+17
+C
+      NC(1,NEK+16)=N2+14
+      NC(2,NEK+16)=N2+24
+      NC(3,NEK+16)=N2+31
+      NC(4,NEK+16)=N2+30
+      NC(5,NEK+16)=N2+29
+      NC(6,NEK+16)=N2+23
+      NC(7,NEK+16)=N2+16
+      NC(8,NEK+16)=N2+15
+C
+      NC(1,NEK+17)=N1+4
+      NC(2,NEK+17)=N1+5
+      NC(3,NEK+17)=N1+6
+      NC(4,NEK+17)=N2+32
+      NC(5,NEK+17)=N2+31
+      NC(6,NEK+17)=N2+24
+      NC(7,NEK+17)=N2+14
+      NC(8,NEK+17)=N2+13
+C
+      NC(1,NEK+18)=N2+27
+      NC(2,NEK+18)=N3+17
+      NC(3,NEK+18)=N3+23
+      NC(4,NEK+18)=N3+22
+      NC(5,NEK+18)=N3+21
+      NC(6,NEK+18)=N3+16
+      NC(7,NEK+18)=N2+25
+      NC(8,NEK+18)=N2+26
+C
+      NC(1,NEK+19)=N2+29
+      NC(2,NEK+19)=N3+18
+      NC(3,NEK+19)=N3+25
+      NC(4,NEK+19)=N3+24
+      NC(5,NEK+19)=N3+23
+      NC(6,NEK+19)=N3+17
+      NC(7,NEK+19)=N2+27
+      NC(8,NEK+19)=N2+28
+C
+      NC(1,NEK+20)=N2+31
+      NC(2,NEK+20)=N3+19
+      NC(3,NEK+20)=N3+27
+      NC(4,NEK+20)=N3+26
+      NC(5,NEK+20)=N3+25
+      NC(6,NEK+20)=N3+18
+      NC(7,NEK+20)=N2+29
+      NC(8,NEK+20)=N2+30
+C
+      NC(1,NEK+21)=N1+6
+      NC(2,NEK+21)=N3+20
+      NC(3,NEK+21)=N3+29
+      NC(4,NEK+21)=N3+28
+      NC(5,NEK+21)=N3+27
+      NC(6,NEK+21)=N3+19
+      NC(7,NEK+21)=N2+31
+      NC(8,NEK+21)=N2+32
+C
+      NC(1,NEK+22)=N1+6
+      NC(2,NEK+22)=N1+7
+      NC(3,NEK+22)=N1+8
+      NC(4,NEK+22)=N1+8
+      NC(5,NEK+22)=N1+8
+      NC(6,NEK+22)=N3+30
+      NC(7,NEK+22)=N3+29
+      NC(8,NEK+22)=N3+20
+C
+      NC(1,NEK+23)=N3+23
+      NC(2,NEK+23)=N4+19
+      NC(3,NEK+23)=N4+25
+      NC(4,NEK+23)=N4+24
+      NC(5,NEK+23)=N4+23
+      NC(6,NEK+23)=N4+18
+      NC(7,NEK+23)=N3+21
+      NC(8,NEK+23)=N3+22
+C
+      NC(1,NEK+24)=N3+25
+      NC(2,NEK+24)=N4+20
+      NC(3,NEK+24)=N4+27
+      NC(4,NEK+24)=N4+26
+      NC(5,NEK+24)=N4+25
+      NC(6,NEK+24)=N4+19
+      NC(7,NEK+24)=N3+23
+      NC(8,NEK+24)=N3+24
+C
+      NC(1,NEK+25)=N3+27
+      NC(2,NEK+25)=N4+21
+      NC(3,NEK+25)=N4+29
+      NC(4,NEK+25)=N4+28
+      NC(5,NEK+25)=N4+27
+      NC(6,NEK+25)=N4+20
+      NC(7,NEK+25)=N3+25
+      NC(8,NEK+25)=N3+26
+C
+      NC(1,NEK+26)=N3+29
+      NC(2,NEK+26)=N4+22
+      NC(3,NEK+26)=N3+31
+      NC(4,NEK+26)=N4+30
+      NC(5,NEK+26)=N4+29
+      NC(6,NEK+26)=N4+21
+      NC(7,NEK+26)=N3+27
+      NC(8,NEK+26)=N3+28
+C
+      NC(1,NEK+27)=N1+8
+      NC(2,NEK+27)=N1+8
+      NC(3,NEK+27)=N1+8
+      NC(4,NEK+27)=N2+33
+      NC(5,NEK+27)=N3+31
+      NC(6,NEK+27)=N4+22
+      NC(7,NEK+27)=N3+29
+      NC(8,NEK+27)=N3+30
+C
+      NC(1,NEM)=N3
+      NC(2,NEM)=N4+5
+      NC(3,NEM)=N4+6
+      NC(4,NEM)=N4+1
+      NC(5,NEM)=N5+2
+      NC(6,NEM)=N5+1
+      NC(7,NEM)=N5
+      NC(8,NEM)=N4
+C
+      NC(1,NEM+1)=N4+6
+      NC(2,NEM+1)=N4+7
+      NC(3,NEM+1)=N4+8
+      NC(4,NEM+1)=N4+2
+      NC(5,NEM+1)=N5+4
+      NC(6,NEM+1)=N5+3
+      NC(7,NEM+1)=N5+2
+      NC(8,NEM+1)=N4+1
+C
+      NC(1,NEM+2)=N4+8
+      NC(2,NEM+2)=N4+9
+      NC(3,NEM+2)=N4+10
+      NC(4,NEM+2)=N4+3
+      NC(5,NEM+2)=N5+6
+      NC(6,NEM+2)=N5+5
+      NC(7,NEM+2)=N5+4
+      NC(8,NEM+2)=N4+2
+C
+      NC(1,NEM+3)=N4+10
+      NC(2,NEM+3)=N4+11
+      NC(3,NEM+3)=N4+12
+      NC(4,NEM+3)=N4+4
+      NC(5,NEM+3)=N5+8
+      NC(6,NEM+3)=N5+7
+      NC(7,NEM+3)=N5+6
+      NC(8,NEM+3)=N4+3
+C
+      NC(1,NEM+4)=N4+23
+      NC(2,NEM+4)=N4+24
+      NC(3,NEM+4)=N4+25
+      NC(4,NEM+4)=N4+32
+      NC(5,NEM+4)=N5+11
+      NC(6,NEM+4)=N5+10
+      NC(7,NEM+4)=N5+9
+      NC(8,NEM+4)=N4+31
+C
+      NC(1,NEM+5)=N4+25
+      NC(2,NEM+5)=N4+26
+      NC(3,NEM+5)=N4+27
+      NC(4,NEM+5)=N4+33
+      NC(5,NEM+5)=N5+13
+      NC(6,NEM+5)=N5+12
+      NC(7,NEM+5)=N5+11
+      NC(8,NEM+5)=N4+32
+C
+      NC(1,NEM+6)=N4+27
+      NC(2,NEM+6)=N4+28
+      NC(3,NEM+6)=N4+29
+      NC(4,NEM+6)=N4+34
+      NC(5,NEM+6)=N5+15
+      NC(6,NEM+6)=N5+14
+      NC(7,NEM+6)=N5+13
+      NC(8,NEM+6)=N4+33
+C
+      NC(1,NEM+7)=N4+29
+      NC(2,NEM+7)=N4+30
+      NC(3,NEM+7)=N3+31
+      NC(4,NEM+7)=N4+35
+      NC(5,NEM+7)=N5+17
+      NC(6,NEM+7)=N5+16
+      NC(7,NEM+7)=N5+15
+      NC(8,NEM+7)=N4+34
+C
+      XYT(1,N1)=X(1,NF)
+      XYT(1,N1+4)=X(1,NF)+ZONE/2.
+      XYT(1,N1+2)=XYT(1,N1+4)-ZONE/2.*0.4142
+      XYT(1,N1+6)=XYT(1,N1+4)+ZONE/2.*0.4142
+      XYT(1,N1+8)=X(2,NF)
+      XYT(1,N3)=X(1,NF)
+      XYT(1,N5)=X(1,NF)
+      XYT(1,N3+31)=X(2,NF)
+      XYT(1,N5+17)=X(2,NF)
+      XYT(1,N3+2)=(XYT(1,N3)+XYT(1,N1+2))/2.
+      XYT(1,N3+29)=(XYT(1,N1+6)+XYT(1,N3+31))/2.
+C
+      XYT(2,N1)=Y(1,NF)
+      XYT(2,N1+2)=Y(1,NF)
+      XYT(2,N1+4)=Y(1,NF)
+      XYT(2,N1+6)=Y(1,NF)
+      XYT(2,N1+8)=Y(1,NF)
+      XYT(2,N3)=Y(4,NF)-ZONE/2.*0.4142
+      XYT(2,N5)=Y(4,NF)
+      XYT(2,N3+31)=XYT(2,N3)
+      XYT(2,N5+17)=Y(4,NF)
+      XYT(2,N3+2)=(XYT(2,N3)+XYT(2,N1+2))/2.
+      XYT(2,N3+29)=(XYT(2,N1+6)+XYT(2,N3+31))/2.
+C
+      R1=(ZONE-2*R)/2.*(2./3.)
+      R2=R1*(1./2.)
+      R3=R2*(1./3.)
+      R4=0.0
+      R1=R1+R
+      R2=R2+R
+      R3=R3+R
+      R4=R4+R
+C
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N5+2,180.0,3,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N4+1,191.25,3,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N4+6,202.5,3,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N4+14,213.75,3,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N3+4,225.0,3,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N3+12,236.25,3,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N2+2,247.5,3,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N2+9,258.75,3,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N2+14,270.0,3,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N2+21,281.25,4,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N2+25,292.5,4,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N3+16,303.75,4,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N3+21,315.0,4,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N4+18,326.25,4,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N4+23,337.5,4,2,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N4+31,348.75,4,1,1)
+      CALL XRING(X0,Y0,R1,R2,R3,R4,N5+9,360.0,4,2,1)
+C
+      RETURN
+      END
+      SUBROUTINE XELR41(NF,X0,Y0,ZONE,R,X,Y,NL,NUF)
+C----------------------------------------------------------------------
+C   PAáÅàEHàE HA KOHEóHõE ùãEMEHTõ îPAÉMEHTA èOÑ OTBEPCTàEM
+C----------------------------------------------------------------------
+      COMMON
+     */AL2/XYT(2,550)
+     */AL2A/NC(8,110)
+C
+      DIMENSION Y(4,12),X(4,12),NUF(12,30),NL(12,10)
+C
+      NEK=NL(NF,1)
+      NEM=NL(NF,2)
+      N1=NUF(NF,1)
+      N2=NUF(NF,2)
+      N3=NUF(NF,3)
+      N4=NUF(NF,4)
+      N5=NUF(NF,5)
+C
+      NC(1,NEK)=N1
+      NC(2,NEK)=N1
+      NC(3,NEK)=N1
+      NC(4,NEK)=N3+1
+      NC(5,NEK)=N3+2
+      NC(6,NEK)=N4+10
+      NC(7,NEK)=N3
+      NC(8,NEK)=N2
+C
+      NC(1,NEK+1)=N3+2
+      NC(2,NEK+1)=N3+3
+      NC(3,NEK+1)=N3+4
+      NC(4,NEK+1)=N4+11
+      NC(5,NEK+1)=N4+5
+      NC(6,NEK+1)=N4+4
+      NC(7,NEK+1)=N3
+      NC(8,NEK+1)=N4+10
+C
+      NC(1,NEK+2)=N3+4
+      NC(2,NEK+2)=N3+5
+      NC(3,NEK+2)=N3+6
+      NC(4,NEK+2)=N4+12
+      NC(5,NEK+2)=N4+7
+      NC(6,NEK+2)=N4+6
+      NC(7,NEK+2)=N4+5
+      NC(8,NEK+2)=N4+11
+C
+      NC(1,NEK+3)=N3+6
+      NC(2,NEK+3)=N3+7
+      NC(3,NEK+3)=N3+8
+      NC(4,NEK+3)=N4+13
+      NC(5,NEK+3)=N4+9
+      NC(6,NEK+3)=N4+8
+      NC(7,NEK+3)=N4+7
+      NC(8,NEK+3)=N4+12
+C
+      NC(1,NEK+4)=N1
+      NC(2,NEK+4)=N1+1
+      NC(3,NEK+4)=N1+2
+      NC(4,NEK+4)=N3+9
+      NC(5,NEK+4)=N3+2
+      NC(6,NEK+4)=N3+2
+      NC(7,NEK+4)=N3+2
+      NC(8,NEK+4)=N3+1
+C
+      NC(1,NEK+5)=N3+2
+      NC(2,NEK+5)=N3+9
+      NC(3,NEK+5)=N1+2
+      NC(4,NEK+5)=N2+1
+      NC(5,NEK+5)=N2+2
+      NC(6,NEK+5)=N3+10
+      NC(7,NEK+5)=N3+4
+      NC(8,NEK+5)=N3+3
+C
+      NC(1,NEK+6)=N3+4
+      NC(2,NEK+6)=N3+10
+      NC(3,NEK+6)=N2+2
+      NC(4,NEK+6)=N2+3
+      NC(5,NEK+6)=N2+4
+      NC(6,NEK+6)=N3+11
+      NC(7,NEK+6)=N3+6
+      NC(8,NEK+6)=N3+5
+C
+      NC(1,NEK+7)=N3+6
+      NC(2,NEK+7)=N3+11
+      NC(3,NEK+7)=N2+4
+      NC(4,NEK+7)=N2+5
+      NC(5,NEK+7)=N2+6
+      NC(6,NEK+7)=N3+12
+      NC(7,NEK+7)=N3+8
+      NC(8,NEK+7)=N3+7
+C
+      NC(1,NEK+8)=N1+2
+      NC(2,NEK+8)=N1+3
+      NC(3,NEK+8)=N1+4
+      NC(4,NEK+8)=N2+10
+      NC(5,NEK+8)=N2+11
+      NC(6,NEK+8)=N2+7
+      NC(7,NEK+8)=N2+2
+      NC(8,NEK+8)=N2+1
+C
+      NC(1,NEK+9)=N2+2
+      NC(2,NEK+9)=N2+7
+      NC(3,NEK+9)=N2+11
+      NC(4,NEK+9)=N2+12
+      NC(5,NEK+9)=N2+13
+      NC(6,NEK+9)=N2+8
+      NC(7,NEK+9)=N2+4
+      NC(8,NEK+9)=N2+3
+C
+      NC(1,NEK+10)=N2+4
+      NC(2,NEK+10)=N2+8
+      NC(3,NEK+10)=N2+13
+      NC(4,NEK+10)=N2+14
+      NC(5,NEK+10)=N2+15
+      NC(6,NEK+10)=N2+9
+      NC(7,NEK+10)=N2+6
+      NC(8,NEK+10)=N2+5
+C
+      NC(1,NEK+11)=N2+13
+      NC(2,NEK+11)=N2+17
+      NC(3,NEK+11)=N2+21
+      NC(4,NEK+11)=N2+20
+      NC(5,NEK+11)=N2+19
+      NC(6,NEK+11)=N2+16
+      NC(7,NEK+11)=N2+15
+      NC(8,NEK+11)=N2+14
+C
+      NC(1,NEK+12)=N2+11
+      NC(2,NEK+12)=N2+18
+      NC(3,NEK+12)=N2+23
+      NC(4,NEK+12)=N2+22
+      NC(5,NEK+12)=N2+21
+      NC(6,NEK+12)=N2+17
+      NC(7,NEK+12)=N2+13
+      NC(8,NEK+12)=N2+12
+C
+      NC(1,NEK+13)=N1+4
+      NC(2,NEK+13)=N1+5
+      NC(3,NEK+13)=N1+6
+      NC(4,NEK+13)=N2+24
+      NC(5,NEK+13)=N2+23
+      NC(6,NEK+13)=N2+18
+      NC(7,NEK+13)=N2+11
+      NC(8,NEK+13)=N2+10
+C
+      NC(1,NEK+14)=N2+21
+      NC(2,NEK+14)=N3+14
+      NC(3,NEK+14)=N3+19
+      NC(4,NEK+14)=N3+18
+      NC(5,NEK+14)=N3+17
+      NC(6,NEK+14)=N3+13
+      NC(7,NEK+14)=N2+19
+      NC(8,NEK+14)=N2+20
+C
+      NC(1,NEK+15)=N2+23
+      NC(2,NEK+15)=N3+15
+      NC(3,NEK+15)=N3+21
+      NC(4,NEK+15)=N3+20
+      NC(5,NEK+15)=N3+19
+      NC(6,NEK+15)=N3+14
+      NC(7,NEK+15)=N2+21
+      NC(8,NEK+15)=N2+22
+C
+      NC(1,NEK+16)=N1+6
+      NC(2,NEK+16)=N3+16
+      NC(3,NEK+16)=N3+23
+      NC(4,NEK+16)=N3+22
+      NC(5,NEK+16)=N3+21
+      NC(6,NEK+16)=N3+15
+      NC(7,NEK+16)=N2+23
+      NC(8,NEK+16)=N2+24
+C
+      NC(1,NEK+17)=N1+6
+      NC(2,NEK+17)=N1+7
+      NC(3,NEK+17)=N1+8
+      NC(4,NEK+17)=N1+8
+      NC(5,NEK+17)=N1+8
+      NC(6,NEK+17)=N3+24
+      NC(7,NEK+17)=N3+23
+      NC(8,NEK+17)=N3+16
+C
+      NC(1,NEK+18)=N3+19
+      NC(2,NEK+18)=N4+15
+      NC(3,NEK+18)=N4+20
+      NC(4,NEK+18)=N4+19
+      NC(5,NEK+18)=N4+18
+      NC(6,NEK+18)=N4+14
+      NC(7,NEK+18)=N3+17
+      NC(8,NEK+18)=N3+18
+C
+      NC(1,NEK+19)=N3+21
+      NC(2,NEK+19)=N4+16
+      NC(3,NEK+19)=N4+22
+      NC(4,NEK+19)=N4+21
+      NC(5,NEK+19)=N4+20
+      NC(6,NEK+19)=N4+15
+      NC(7,NEK+19)=N3+19
+      NC(8,NEK+19)=N3+20
+C
+      NC(1,NEK+20)=N3+23
+      NC(2,NEK+20)=N4+17
+      NC(3,NEK+20)=N3+25
+      NC(4,NEK+20)=N4+23
+      NC(5,NEK+20)=N4+22
+      NC(6,NEK+20)=N4+16
+      NC(7,NEK+20)=N3+21
+      NC(8,NEK+20)=N3+22
+C
+      NC(1,NEK+21)=N3+23
+      NC(2,NEK+21)=N3+24
+      NC(3,NEK+21)=N1+8
+      NC(4,NEK+21)=N1+8
+      NC(5,NEK+21)=N1+8
+      NC(6,NEK+21)=N2+25
+      NC(7,NEK+21)=N3+25
+      NC(8,NEK+21)=N4+17
+C
+      NC(1,NEM)=N3
+      NC(2,NEM)=N4+4
+      NC(3,NEM)=N4+5
+      NC(4,NEM)=N4+1
+      NC(5,NEM)=N5+2
+      NC(6,NEM)=N5+1
+      NC(7,NEM)=N5
+      NC(8,NEM)=N4
+C
+      NC(1,NEM+1)=N4+5
+      NC(2,NEM+1)=N4+6
+      NC(3,NEM+1)=N4+7
+      NC(4,NEM+1)=N4+2
+      NC(5,NEM+1)=N5+4
+      NC(6,NEM+1)=N5+3
+      NC(7,NEM+1)=N5+2
+      NC(8,NEM+1)=N4+1
+C
+      NC(1,NEM+2)=N4+7
+      NC(2,NEM+2)=N4+8
+      NC(3,NEM+2)=N4+9
+      NC(4,NEM+2)=N4+3
+      NC(5,NEM+2)=N5+6
+      NC(6,NEM+2)=N5+5
+      NC(7,NEM+2)=N5+4
+      NC(8,NEM+2)=N4+2
+C
+      NC(1,NEM+3)=N4+18
+      NC(2,NEM+3)=N4+19
+      NC(3,NEM+3)=N4+20
+      NC(4,NEM+3)=N4+25
+      NC(5,NEM+3)=N5+9
+      NC(6,NEM+3)=N5+8
+      NC(7,NEM+3)=N5+7
+      NC(8,NEM+3)=N4+24
+C
+      NC(1,NEM+4)=N4+20
+      NC(2,NEM+4)=N4+21
+      NC(3,NEM+4)=N4+22
+      NC(4,NEM+4)=N4+26
+      NC(5,NEM+4)=N5+11
+      NC(6,NEM+4)=N5+10
+      NC(7,NEM+4)=N5+9
+      NC(8,NEM+4)=N4+25
+C
+      NC(1,NEM+5)=N4+22
+      NC(2,NEM+5)=N4+23
+      NC(3,NEM+5)=N3+25
+      NC(4,NEM+5)=N4+27
+      NC(5,NEM+5)=N5+13
+      NC(6,NEM+5)=N5+12
+      NC(7,NEM+5)=N5+11
+      NC(8,NEM+5)=N4+26
+C
+      XYT(1,N1)=X(1,NF)
+      XYT(1,N1+4)=X(1,NF)+ZONE/2.
+      XYT(1,N1+2)=XYT(1,N1+4)-ZONE/2.*0.4142
+      XYT(1,N1+6)=XYT(1,N1+4)+ZONE/2.*0.4142
+      XYT(1,N1+8)=X(2,NF)
+      XYT(1,N3)=X(1,NF)
+      XYT(1,N5)=X(1,NF)
+      XYT(1,N3+25)=X(2,NF)
+      XYT(1,N5+13)=X(2,NF)
+      XYT(1,N3+2)=(XYT(1,N3)+XYT(1,N1+2))/2.
+      XYT(1,N3+23)=(XYT(1,N1+6)+XYT(1,N3+25))/2.
+C
+      XYT(2,N1)=Y(1,NF)
+      XYT(2,N1+2)=Y(1,NF)
+      XYT(2,N1+4)=Y(1,NF)
+      XYT(2,N1+6)=Y(1,NF)
+      XYT(2,N1+8)=Y(1,NF)
+      XYT(2,N3)=Y(4,NF)-ZONE/2.*0.4142
+      XYT(2,N5)=Y(4,NF)
+      XYT(2,N3+25)=XYT(2,N3)
+      XYT(2,N5+13)=Y(4,NF)
+      XYT(2,N3+2)=(XYT(2,N3)+XYT(2,N1+2))/2.
+      XYT(2,N3+23)=(XYT(2,N1+6)+XYT(2,N3+25))/2.
+C
+      R1=((ZONE-2.0*R)/2.)*(1./2.)
+      R2=R1*(1./3.)
+      R3=0.0
+      R1=R1+R
+      R2=R2+R
+      R3=R3+R
+C
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N5+2,180.0,3,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N4+1,191.25,3,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N4+5,202.5,3,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N4+11,213.75,3,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N3+4,225.0,3,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N3+10,236.25,3,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N2+2,247.5,3,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N2+7,258.75,3,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N2+11,270.0,3,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N2+16,281.25,4,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N2+19,292.5,4,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N3+13,303.75,4,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N3+17,315.0,4,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N4+14,326.25,4,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N4+18,337.5,4,2,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N4+24,348.75,4,1,0)
+      CALL XRING(X0,Y0,R1,R2,R3,0.0,N5+7,360.0,4,2,0)
+C
+      RETURN
+      END
