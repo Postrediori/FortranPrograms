@@ -252,34 +252,33 @@ C
 C
       LH=0
       DO I=1,NEL
-         IF(NC(8,I).EQ.0) CYCLE
-         MAX=0
-         MIN=10000
-         DO J=1,8
-            IF (NC(J,I)>0) THEN
-               K=1
-            ELSE IF (NC(J,I)<0) THEN
-               K=-1
-               NC(J,I)=-NC(J,I)
-            ELSE
-               NC(J,I)=NC(J-1,I)+K
-            END IF
-            JJ=NC(J,I)
-            IF(JJ.GT.MAX) MAX=JJ
-            IF(JJ.LT.MIN) MIN=JJ
-            XY(J,1)=XYT(1,JJ)
-            XY(J,2)=XYT(2,JJ)
-         END DO
-         IF(MAX-MIN.GT.LH) LH=MAX-MIN
-         DO J=2,8,2
-            II=J+1
-            IF(II.GT.8) II=1
-            JJ=NC(J,I)
-            IF((XY(J,1).NE.0.0).OR.(XY(J,2).NE.0.0)) EXIT
-            DO K=1,2
-               XYT(K,JJ)=(XY(J-1,K)+XY(II,K))/2.0
-            END DO
-         END DO
+        IF(NC(8,I).EQ.0) CYCLE
+        MAX=0
+        MIN=10000
+        DO J=1,8
+          IF (NC(J,I)) 204,205,203
+  203     K=1
+          GO TO 206
+  204     K=-1
+          NC(J,I)=-NC(J,I)
+          GO TO 206
+  205     NC(J,I)=NC(J-1,I)+K
+  206     JJ=NC(J,I)
+          IF(JJ.GT.MAX) MAX=JJ
+          IF(JJ.LT.MIN) MIN=JJ
+          XY(J,1)=XYT(1,JJ)
+          XY(J,2)=XYT(2,JJ)
+        END DO
+        IF(MAX-MIN.GT.LH) LH=MAX-MIN
+        DO J=2,8,2
+          II=J+1
+          IF(II.GT.8) II=1
+          JJ=NC(J,I)
+          IF((XY(J,1).NE.0.0).OR.(XY(J,2).NE.0.0)) CYCLE
+          DO K=1,2
+            XYT(K,JJ)=(XY(J-1,K)+XY(II,K))/2.0
+          END DO
+        END DO
       END DO
 C
       IF(IPROB.EQ.1) CALL XTOP(IM,NL)
@@ -420,34 +419,33 @@ C
       LH=0
 C
       DO I=1,NEL
-         IF(NC(8,I).EQ.0) CYCLE
-         MAX=0
-         MIN=10000
-         DO J=1,8
-            IF (NC(J,I)>0) THEN
-               K=1
-            ELSE IF (NC(J,I)<0) THEN
-               K=-1
-               NC(J,I)=-NC(J,I)
-            ELSE
-               NC(J,I)=NC(J-1,I)+K
-            END IF
-            JJ=NC(J,I)
-            IF(JJ.GT.MAX) MAX=JJ
-            IF(JJ.LT.MIN) MIN=JJ
-            XY(J,1)=XYT(1,JJ)
-            XY(J,2)=XYT(2,JJ)
-         END DO
-         IF(MAX-MIN.GT.LH) LH=MAX-MIN
-         DO J=2,8,2
-            II=J+1
-            IF(II.GT.8) II=1
-            JJ=NC(J,I)
-            IF((XY(J,1).NE.0.0).OR.(XY(J,2).NE.0.0)) EXIT
-            DO K=1,2
-               XYT(K,JJ)=(XY(J-1,K)+XY(II,K))/2.0
-            END DO
-         END DO
+        IF(NC(8,I).EQ.0) CYCLE
+        MAX=0
+        MIN=10000
+        DO J=1,8
+          IF (NC(J,I)) 204,205,203
+  203     K=1
+          GO TO 206
+  204     K=-1
+          NC(J,I)=-NC(J,I)
+          GO TO 206
+  205     NC(J,I)=NC(J-1,I)+K
+  206     JJ=NC(J,I)
+          IF(JJ.GT.MAX) MAX=JJ
+          IF(JJ.LT.MIN) MIN=JJ
+          XY(J,1)=XYT(1,JJ)
+          XY(J,2)=XYT(2,JJ)
+        END DO
+        IF(MAX-MIN.GT.LH) LH=MAX-MIN
+        DO J=2,8,2
+          II=J+1
+          IF(II.GT.8) II=1
+          JJ=NC(J,I)
+          IF((XY(J,1).NE.0.0).OR.(XY(J,2).NE.0.0)) CYCLE
+          DO K=1,2
+            XYT(K,JJ)=(XY(J-1,K)+XY(II,K))/2.0
+          END DO
+        END DO
       END DO
 C
       LH=LH+1
@@ -533,68 +531,68 @@ C
    42 CONTINUE
 C
       DO I=NL(8,1),NE1
-         DO J=3,5
-            IF(I.EQ.NE1.AND.J.EQ.5) EXIT
-            NC1(J,I)=NC(J,I)+NALL
-            NC1JI=NC1(J,I)
-            NCJI=NC(J,I)
-            DO K=1,2
-               XYT1(K,NC1JI)=XYT(K,NCJI)
-            END DO
-         END DO
+        DO J=3,5
+          IF(I.EQ.NE1.AND.J.EQ.5) CYCLE
+          NC1(J,I)=NC(J,I)+NALL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+		END DO
       END DO
 C
       DO I=NL(8,1),NE1
-         DO J=1,8
-            IF(J.EQ.3.OR.J.EQ.4.OR.J.EQ.5) EXIT
-            IF(I.EQ.NE1.AND.(J.EQ.6.OR.J.EQ.7)) EXIT
-            NC1(J,I)=NC(J,I)+NDEL
-            NC1JI=NC1(J,I)
-            NCJI=NC(J,I)
-            DO K=1,2
-               XYT1(K,NC1JI)=XYT(K,NCJI)
-            END DO
-         END DO
+        DO J=1,8
+          IF(J.EQ.3.OR.J.EQ.4.OR.J.EQ.5) CYCLE
+          IF(I.EQ.NE1.AND.(J.EQ.6.OR.J.EQ.7)) CYCLE
+          NC1(J,I)=NC(J,I)+NDEL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+  		END DO
       END DO
 C
       NE11=NE1+1
       DO I=NE11,NE3
-         DO J=1,8
-            IF(I.EQ.NE2.AND.((J.EQ.5).OR.(J.EQ.6).OR.(J.EQ.7))) EXIT
-            IF(I.EQ.NE3.AND.((J.EQ.5).OR.(J.EQ.6).OR.(J.EQ.7))) EXIT
-            NC1(J,I)=NC(J,I)+NDEL
-            NC1JI=NC1(J,I)
-            NCJI=NC(J,I)
-            DO K=1,2
-               XYT1(K,NC1JI)=XYT(K,NCJI)
-            END DO
-         END DO
+        DO J=1,8
+          IF(I.EQ.NE2.AND.((J.EQ.5).OR.(J.EQ.6).OR.(J.EQ.7))) CYCLE
+          IF(I.EQ.NE3.AND.((J.EQ.5).OR.(J.EQ.6).OR.(J.EQ.7))) CYCLE
+          NC1(J,I)=NC(J,I)+NDEL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+        END DO
       END DO
 C
       NE11=NE3+1
       DO I=NE11,NE4
-         DO J=1,8
-            IF(J.EQ.1.OR.J.EQ.7.OR.J.EQ.8) EXIT
-            IF(I.EQ.NE4.AND.(J.EQ.5.OR.J.EQ.6)) EXIT
-            NC1(J,I)=NC(J,I)+NDEL
-            NC1JI=NC1(J,I)
-            NCJI=NC(J,I)
-            DO K=1,2
-               XYT1(K,NC1JI)=XYT(K,NCJI)
-            END DO
-         END DO
+        DO J=1,8
+          IF(J.EQ.1.OR.J.EQ.7.OR.J.EQ.8) CYCLE
+          IF(I.EQ.NE4.AND.(J.EQ.5.OR.J.EQ.6)) CYCLE
+          NC1(J,I)=NC(J,I)+NDEL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+		END DO
       END DO
 C
       DO I=NL(9,1),NE5
-         DO J=1,8
-            IF(J.EQ.1.OR.J.EQ.2.OR.J.EQ.3) EXIT
-            NC1(J,I)=NC(J,I)+NDEL
-            NC1JI=NC1(J,I)
-            NCJI=NC(J,I)
-            DO K=1,2
-               XYT1(K,NC1JI)=XYT(K,NCJI)
-            END DO
-         END DO
+        DO J=1,8
+          IF(J.EQ.1.OR.J.EQ.2.OR.J.EQ.3) CYCLE
+          NC1(J,I)=NC(J,I)+NDEL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+		  END DO
+		END DO
       END DO
 C
       NNOD=NNOD+NDEL
