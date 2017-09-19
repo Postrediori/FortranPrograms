@@ -1,0 +1,227 @@
+\documentclass[12pt,a4paper,oneside]{book}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+
+\usepackage{ucs}
+\usepackage{cmap}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{gensymb}
+
+\makeatletter
+  \newcommand*\Mach{\mathcal{M}}
+  \newcommand*\crit{\text{кр}}
+  \newcommand*\eps{\varepsilon}
+  \renewcommand*\vec[1]{\mathbf{#1}}
+\makeatother
+
+\title{Лабораторная работа №2. \\ Расчёт параметров на косом скачке уплотнения}
+\author{}
+\date{}
+
+\begin{document}
+  
+  \maketitle
+  
+  При расчёте параметров газа на косом скачке уплотнения надо использовать
+  законы механики в интегральной форме.
+  
+  Пусть газ с параметрами, помеченными индексом $1$ пересекает
+  поверхность разрыва, образующую угол $\beta$ с направлением
+  потока $\vec{V_1}$. Пройдя через скачок уплотнения, газ приобретает скорость
+  $\vec{V_2}$, образующую угол $\theta$ с $\vec{V_1}$. Рассмотрим на поверхности
+  разрыва единичную площадку и определим объем газа, пересекающий
+  поверхность разрыва за единицу времени. Величина
+  этого объема слева от разрыва численно равна проекции скорости $\vec{V_1}$
+  на нормаль к разрыву, справа -- такой же проекции $\vec{V_2}$.
+  
+  По теореме о сохранении массы имеем
+  
+  \begin{equation}
+    \label{eq:1}
+    \rho_1 V_{1n} = \rho_2 V_{2n}
+  \end{equation}
+  
+  Количество движения, которым обладает рассматриваемый
+  объем в области $1$ равно $\rho_1 V_{1n} \vec{V_1}$, а в области $2$ --
+  $\rho_2 V_{2n} \vec{V_2}$. Изменение количества движения происходит под действием
+  разности давлений $(p_2 - p_1)$
+  
+  \begin{equation*}
+    \label{eq:2}
+    \rho_2 V_{2n}^2 \vec{V_2} - \rho_1 V_{1n} \vec{V_1} = (p_2 - p_1) \vec{n}
+  \end{equation*}
+  
+  Спроектировав это векторное уравнение на направление нормали
+  и касательной к разрыву, получим
+  
+  \begin{align}
+    \label{eq:3}
+    & \rho_2 V_{2n}^2 - \rho_1 V_{1n}^2 = p_1 - p_2 \\
+    & V_{1 \tau} = V_{2 \tau}
+  \end{align}
+  
+  Запишем ещё изменение полной энергии газа, состоящей из кинетической
+  и внутренней энергии
+  
+  \begin{equation}
+    \label{eq:4}
+    \rho_2 V_{2n} ( \frac{1}{2} V_2^2 + e_2)
+      - \rho_1 V_{1n} ( \frac{1}{2} V_1^2 + e_1)
+      = p_1 V_{1n} p_2 V_{2n}
+  \end{equation}
+  
+  \noindent Соотношение~\eqref{eq:4} с учетом~\eqref{eq:1} можно записать в виде
+  
+  \begin{equation}
+    \label{eq:5}
+    \frac{1}{2} V_2^2 + e_2 + \frac{p_2}{\rho_2}
+      = \frac{1}{2} V_1^2 + e_1 + \frac{p_1}{\rho_1}
+  \end{equation}
+  
+  \noindent Если ввести энтальпию, $i = e + \frac{p}{\rho}$, то получим
+  
+  \begin{equation}
+    \label{eq:6}
+    \frac{1}{2} V_2^2 + i_2 = \frac{1}{2} V_1^2 + i_1
+  \end{equation}
+  
+  Из этого соотношения слудует, что константа в интеграле Бернулли не терпит
+  разрыва при переходе через скачок. Из соотношений \eqref{eq:1}, \eqref{eq:2},
+  \eqref{eq:3}, \eqref{eq:6} можно получить соотношение Прандтля
+  
+  \begin{equation}
+    \label{eq:7}
+    V_{1n} V_{2n} = a_{c\crit}^2 - \frac{\gamma - 1}{\gamma + 1} V_{\tau}^2
+  \end{equation}
+  
+  \noindent где $a_{\crit}$ -- критическая скорость звука, а
+  $\gamma$ -- отношение удельных теплоемкостей. Из $\eqref{eq:2}$
+  можно получить
+  
+  \begin{equation}
+    \frac{p_2}{p_1} = \frac{2 \gamma}{\gamma + 1}
+      \Mach_1^2 \sin^2 \beta - \frac{\gamma - 1}{\gamma + 1}
+  \end{equation}
+  
+  \noindent Здесь $\Mach_1 = \frac{V_1}{a_1}$ -- число Маха для волны.
+  
+  Из соотношения $\eqref{eq:7}$ можно получить связь между углом скачка
+  $\beta$ и углом разворота $\theta$ в виде
+  
+  \begin{equation}
+    \label{eq:9}
+    \tan \theta = 
+      \frac{
+        \Mach_1^2 \sin^2 \beta - 1
+      } {
+        1 + \Mach_1^2
+          \Big( \frac{\gamma + 1}{2} - \sin^2 \beta \Big)
+      } \ctg \beta
+  \end{equation}
+  
+  \noindent Отсюда можно получить величину максимального угла разворота
+  $\theta_{\text{max}}$ для заданного числа Маха $\Mach_1$ на косом скачке
+  
+  \begin{equation}
+    \label{eq:10}
+    \sin^2 \beta_{\text{max}} = 
+      \frac{1}{\gamma \Mach_1^2}
+      \Big[
+        \frac{\gamma + 1}{4} \Mach_1^2 - 1
+        + (\gamma + 1)
+          \big(
+            1 + \frac{\gamma - 1}{2} \Mach_1^2
+            + \frac{\gamma + 1}{16} \Mach_1^2
+          \big)
+      \Big]
+  \end{equation}
+  
+  По соотношению \eqref{eq:9} угол разворота потока однозначно определяется
+  по углу наклона скачка $\beta$ и числу Маха $\Mach_1$. На практике часто
+  возникает обратная задача -- определение угла наклона скачка $\beta$
+  по заданному углу $\theta$. Соотношение \eqref{eq:9} можно переписать
+  в виде кубического уравнения относительно $\tan \beta$:
+  
+  \begin{equation}
+    \label{eq:11}
+    \tan^3 \beta + \alpha \tan^2 \beta + b \tan \beta = 0
+  \end{equation}
+  
+  \noindent где
+  
+  \begin{align*}
+    & a = (1 - \Mach_1^2) m \ctg \theta \\
+    & b = (1 + \frac{1}{2} (\gamma + 1) \Mach_1^2) m \\
+    & c = m \ctg \theta \\
+    & m = \big( 1 + \frac{1}{2}(\gamma - 1) \Mach_1^2 \big)^{-1}
+  \end{align*}
+  
+  В рассматриваемом случае уравнение \eqref{eq:11} имеет три вещественных
+  корня, один из которых отрицательный, не имеющий физического смысла,
+  а два других определяют углы наклона слабого (присоединённого) и сильного
+  скачков уплотнения, разворачивающие поток на заданный угол $\theta$.
+  
+  Все три корня уравнения \eqref{eq:11} можно получить по формулам Кардано.
+  Введём обозначения
+  
+  \begin{align*}
+    & x = \tan \beta + \frac{a}{3} \\
+    & p = b - \frac{a^2}{3} \\
+    & q = a^3 \frac{2}{27} - \frac{ab}{3} + c
+  \end{align*}
+  
+  \noindent При этом уравнение \eqref{eq:11} приводится к виду
+  
+  \begin{equation*}
+    x^3 + px + q = 0
+  \end{equation*}
+  
+  \noindent решения которого
+  
+  \begin{equation}
+    \label{eq:12}
+    \begin{split}
+      & x_1 = 2 \sqrt{ -\frac{p}{3} } \cos \frac{\alpha}{3} \\
+      & x_{2,3} = 2 \sqrt{-\frac{p}{3}}
+        \cos \big( \frac{\alpha}{3} \pm \frac{2 \pi}{3} \big)
+    \end{split}
+  \end{equation}
+  
+  \noindent где
+  
+  \begin{equation*}
+    \cos \alpha = - \frac{q}{2 \sqrt{-\frac{p}{3}}}
+  \end{equation*}
+  
+  На практике удобнее искать единственный требуемый корень, используя
+  специально подобранную схему простой итерации.
+  
+  \section*{Задание на лабораторную работу}
+  
+  1. По заданным значениям $\Mach_1$ и $\theta$ найти три значения угла
+  наклона скачка $\beta$, пользуясь формулами \eqref{eq:12}.
+  
+  2. Проэкспериментировать с различными схемами метода простой итерации
+  и выбрать такую, которая устойчиво сходится к значениям $\tan \beta$
+  для слабой волны.
+  
+  3. Написать и отладить подпрограмму, которая по заданным значениям
+  $\Mach_1$ и $\theta$ выдаёт угол слабой ударной волны $\beta$
+  
+  \centering
+  \begin{tabular}[c]{l|ll}
+    \textbf{\ №№} & $\Mach_1$ & $\theta \degree$ \\
+    1 \textellipsis 8 & 2 + N / 4 & 12 \degree + N \degree \\
+    9 \textellipsis 16 & 3 + N / 5 & 15 \degree + N \degree / 2 \\
+    17 \textellipsis 24 & 4 + N / 6 & 8 \degree + N \degree / 3
+  \end{tabular}
+  
+  
+  
+  
+\end{document}
