@@ -65,7 +65,7 @@ C
   564 RP2(I)=A1(I)
   600 CONTINUE
       RETURN
-      END
+      END SUBROUTINE PDDATA
 C*****
       SUBROUTINE PDFOR(NN,IFF)
 C----------------------------------------------------------------------
@@ -146,7 +146,7 @@ C
    95 CONTINUE
   100 CONTINUE
   110 RETURN
-      END
+      END SUBROUTINE PDFOR
 C*****
       SUBROUTINE PDFF(N)
       COMMON
@@ -230,7 +230,8 @@ C
   120 FORMAT(20X,'óàCãO ÄäíàÇçõï çÄèêÄÇãÖçàâ PABHO  ',I6/)
 C
       RETURN
-      END
+      END SUBROUTINE PDFF
+C*****
       SUBROUTINE PDSE(K,DA,LA,K1,A0)
 C----------------------------------------------------------------------
 C     A,DA(3)-BEKTOP à EÉO èPàPAôEHàE B TOóKE-K;
@@ -247,8 +248,8 @@ C
    10 DA(I)=(A0(I,K1+1)-A0(I,K1))/(N2-N1)
       IF(K.EQ.N2-1) K1=K1+1
       RETURN
-      END
-C
+      END SUBROUTINE PDSE
+C*****
       SUBROUTINE PDSOL(N)
 C----------------------------------------------------------------------
 C    PEòEHàÖ CàCTEMõ Ñàî.ìPABHEHàâ METOÑOM ùâãEPA
@@ -260,8 +261,8 @@ C
       DO 1 I=1,N
     1 SUM(I)=SUM(I)+FP(I)
       RETURN
-      END
-C
+      END SUBROUTINE PDSOL
+C*****
       FUNCTION PDRR(X,XI,ET)
       DIMENSION AN(8),X(8)
       X1=1.0-XI
@@ -280,8 +281,8 @@ C
       DO 1 I=1,8
     1 PDRR=PDRR+X(I)*AN(I)
       RETURN
-      END
-C
+      END FUNCTION PDRR
+C*****
       SUBROUTINE XBLOCK(NELX,ITEORX)
 C----------------------------------------------------------------------
 C
@@ -346,4 +347,4 @@ C
     4 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE XBLOCK

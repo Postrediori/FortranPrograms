@@ -321,14 +321,16 @@ c      PRINT 1002,NZ,(MZD(I),I=1,NZ)
  1002 FORMAT(10I5)
  1005 format(3i5,2f8.2)
  1006 RETURN
-      END
+      END SUBROUTINE XADATA
+C*****
       BLOCK DATA
       COMMON/AL2/XYT(2,550)
       COMMON /UZLY/ K,T(25),AR(25)
       DATA K/5/,T/-.9061798,-.5384693,0.,.5384693,.9061798,20*0./,
      *AR/.2369269,.4786287,.5688889,.4786287,.2369269,20*0./
       DATA XYT/1100*0.0/
-      END
+      END BLOCK DATA
+C*****
       SUBROUTINE X4EL(iteor)
       COMMON
      */AL1A/LH
@@ -461,7 +463,8 @@ C      PRINT 1002,(J,LTEL(NEP+J),LST(NEP+J),PT(1,NEP+J),J=1,NEP1)
  1002 FORMAT(3I5,F5.2)
 C
       RETURN
-      END
+      END SUBROUTINE X4EL
+C*****
       SUBROUTINE XCRACK(NL,NUF,NEL,NNOD,MM,NN,IM)
 C----------------------------------------------------------------------
 C                 èPOñEÑìPA îOPMàPOBAHàü TPEôàHõ
@@ -614,7 +617,8 @@ C
    10 NUF(10,I)=NUF(10,I)+NDEL
 C
       RETURN
-      END
+      END SUBROUTINE XCRACK
+C*****
       SUBROUTINE XELR1(M,N,X,Y,NU,NL)
 C----------------------------------------------------------------------
 C èPOñEÑìPA PAáÅàBKà óETõPEXìÉOãúHOâ OÅãACTà CETKOâ KOHEóHõX ùãEMEHTOB
@@ -661,7 +665,8 @@ C
   40  XYT(2,NJ)=Y1+(Y2-Y1)/M*(I-1)
 C
       RETURN
-      END
+      END SUBROUTINE XELR1
+C*****
       SUBROUTINE XELR2(NF,XZONE,YZONE,X,Y,NL,NUF,KLIN,ALFA)
 C----------------------------------------------------------------------
 C   PAáÅàEHàE HA KOHEóHõE ùãEMEHTõ HàÜHEÉO îPAÉMEHTA èOÑ TPEôàHOâ
@@ -866,7 +871,8 @@ C
       XYT(2,N3+16)=Y(3,NF)
 C
       RETURN
-      END
+      END SUBROUTINE XELR2
+C*****
       SUBROUTINE XELR21(NF,XZONE,YZONE,X,Y,NL,NUF,KLIN,ALFA)
 C----------------------------------------------------------------------
 C   PAáÅàEHàE HA KOHEóHõE ùãEMEHTõ îPAÉMEHTA èOÑ TPEôàHOâ
@@ -1117,5 +1123,5 @@ C
       XYT(2,N3+20)=Y(3,NF)
 C
       RETURN
-      END
+      END SUBROUTINE XELR21
 

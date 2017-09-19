@@ -21,8 +21,8 @@ C
       XY(K,1)=XYT(1,J)
    49 XY(K,2)=XYT(2,J)
       RETURN
-      END
-C
+      END SUBROUTINE PDELM
+C*****
       SUBROUTINE PDSTIF(II,IG)
 C----------------------------------------------------------------------
 C     îOPMàPOBAHàE MATPàñõ ÜETKOCTà ùãEMEHTA  AK(16,16)
@@ -67,8 +67,8 @@ C
    20 AK(I,J)=AK(I,J)+CC(I,K)*B(K,J)*C(M)*C(N)*DET
    40 CONTINUE
       RETURN
-      END
-C
+      END SUBROUTINE PDSTIF
+C*****
       SUBROUTINE PDCOB(XI,ET,IG)
 C----------------------------------------------------------------------
 C     îOPMàPOBAHàE MATPàñõ ÑàîîEPEHñàPOBAHàü
@@ -188,7 +188,8 @@ C
    55 CONTINUE
 C
    70 RETURN
-      END
+      END SUBROUTINE PDCOB
+C*****
       SUBROUTINE PDDGNR(IG,JIN)
 C----------------------------------------------------------------------
 C èPEOÅPAáOBAHàE  óETõPEXìÉOãúHõX  KOHEóHõX  ùãEMEHTOB  B  TPEìÉOãúHõE
@@ -207,7 +208,8 @@ C
       IF(IG.GT.8) IG=IG-8
 C
       RETURN
-      END
+      END SUBROUTINE PDDGNR
+C*****
       SUBROUTINE PDPRES(JS,P1,P2,G1,G2,AH)
 C----------------------------------------------------------------------
 C        îOPMàPOBAHàE HAÉPìáKà, ÑECTBìûôEâ HA ùãEMEHT
@@ -260,7 +262,8 @@ C
    90 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE PDPRES
+C*****
       SUBROUTINE PDSTR(K)
 C----------------------------------------------------------------------
 C    èOÑCóET HAèPüÜEHàâ B ìáãAX àHTEÉPàPOBAHàü
@@ -280,7 +283,8 @@ C
       IF(INS.EQ.1) SIG(4,K)=0.0
 C
       RETURN
-      END
+      END SUBROUTINE PDSTR
+C*****
       SUBROUTINE PDDEF(U,E)
 C----------------------------------------------------------------------
 C     îOPMàPOBAHàE ÑEîOPMAñàâ B ìáãAX àHTEÉPàPOBAHàü
@@ -301,7 +305,8 @@ C
       IF(INS.EQ.1) E(4)=-ANU*(E(1)+E(2))
 C
       RETURN
-      END
+      END SUBROUTINE PDDEF
+C*****
       SUBROUTINE PDNODY(W,NNOD)
 C----------------------------------------------------------------------
 C    èPOñEÑìPA ùKCTPAèOãüñàà èOãEâ áAÑAHHõX B ìáãAX àHTEÉPàPOBAHàü
@@ -350,7 +355,8 @@ C
   800 W(I)=SN(I)/LK(I)
 C
       RETURN
-      END
+      END SUBROUTINE PDNODY
+C*****
       SUBROUTINE PDBSUB(L1,N1,I1)
 C
       COMMON
@@ -379,7 +385,8 @@ C
    40    CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE PDBSUB
+C*****
       SUBROUTINE PDSTRT(L1,N1,N,IB)
 C
       COMMON/BL1/A(400000)
@@ -412,4 +419,4 @@ C
    40 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE PDSTRT

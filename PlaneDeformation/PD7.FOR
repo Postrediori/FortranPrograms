@@ -202,7 +202,8 @@ C
       XYT(2,N1+16)=Y(2,NF)
 C
       RETURN
-      END
+      END SUBROUTINE XELR3
+C*****
       SUBROUTINE XELR31(NF,XZONE,YZONE,X,Y,NL,NUF,KLIN,ALFA)
 C----------------------------------------------------------------------
 C   PAáÅàEHàE HA KOHEóHõE ùãEMEHTõ BEPXHEÉO îPAÉMEHTA HAÑ TPEôàHOâ
@@ -453,7 +454,8 @@ C
       XYT(2,N1+20)=Y(2,NF)
 C
       RETURN
-      END
+      END SUBROUTINE XELR31
+C*****
       SUBROUTINE XNAGR(NL,MM,NN,NEL)
 C----------------------------------------------------------------------
 C        îOPMàPOBAHàE HAÉPìáKà HA ÉPAHàñE
@@ -522,7 +524,8 @@ C  ----------------------->  îOPMàPOBAHàE HAÉPìáKà CèPABA
     4 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE XNAGR
+C*****
       SUBROUTINE XREG( MM,NN,LM,LN,NF,X,Y,ISF,NSF,NUFD,NLD,ZONE,
      *                 KLIN,ALFA,X0,Y0,R,IM,   NUF,NL,NEL,NJ)
 C----------------------------------------------------------------------
@@ -626,7 +629,8 @@ C
   60     CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE XREG
+C*****
       SUBROUTINE XRING(X0,Y0,R1,R2,R3,R4,NOM,ANGL,IQUADR,I,IPR)
 C
       COMMON /AL2/XYT(2,550)
@@ -701,7 +705,8 @@ C
       IF(IPR.NE.0) XYT(2,NOM+3*I)=Y0-R44*SI
 C
     4 RETURN
-      END
+      END SUBROUTINE XRING
+C*****
       SUBROUTINE XTOP(IM,NL)
 C----------------------------------------------------------------------
 C     CMEôEHàE ìáãOB Kù HA 1/4 CTOPOHõ B OKPECTHOCTà BEPòàHõ TPEôàHõ
@@ -753,4 +758,4 @@ C
    30 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE XTOP

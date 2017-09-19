@@ -24,8 +24,8 @@ C
 C
       CALL PDDDP(II,KK,r,dr,dk)
       RETURN
-      END
-C
+      END SUBROUTINE PDDDD
+C*****
       SUBROUTINE PDDDP(II,KK, R,DR,DK)
 C----------------------------------------------------------------------
 C       èOCTPOEHàE MATPàñõ KACATEãúHOâ ÜECTKOCTà
@@ -134,7 +134,8 @@ C----------
 c      IF(II.EQ.1.AND.KK.EQ.1) PRINT 789,((dp(i,j),j=1,4),i=1,4)
  789  FORMAT(2x,4f12.2)
       RETURN
-      END
+      END SUBROUTINE PDDDP
+C*****
       SUBROUTINE PDGUK
 C----------------------------------------------------------------------
 C  ìèPìÉAü CBüáú MEÜÑì TEHáOPAMà HAèPüÜEHàü à ÑEîOPMAñàà
@@ -163,7 +164,8 @@ C
    40 DP(I,J)=DP(I,J)*E/((1.0+ANU)*(1.0-ANU1))
 C
       RETURN
-      END
+      END SUBROUTINE PDGUK
+C*****
       SUBROUTINE PDDES(DE,  DS,DR,de1,DK)
 C----------------------------------------------------------------------
 C  èPOñEÑìPA èOCTPOEHàü CKOPOCTEâ àáMEHEHàü HAèPüÜEàâ-DS(4)
@@ -212,8 +214,8 @@ c      PRINT 789,((dp(i,j),j=1,4),i=1,4)
  789  FORMAT(2x,'ds',4f12.2)
       IF(INS.EQ.1) DS(4)=0.0
       RETURN
-      END
-C
+      END SUBROUTINE PDDES
+C*****
       SUBROUTINE PDTEVE(TEN,VEC)
 C----------------------------------------------------------------------
 C  èPOñEÑìPA èEPEBOÑA KOMèOHEHT TEáOPA HAèPüÜEHàü (ÑEîOPMAñàà) B
@@ -231,4 +233,4 @@ C
       VEC(3)=1.414*TEN(3)/2.0
 C
        RETURN
-       END
+       END SUBROUTINE PDTEVE

@@ -392,7 +392,8 @@ C
       CALL XRING(X0,Y0,R1,R2,R3,R4,N5+9,360.0,4,2,1)
 C
       RETURN
-      END
+      END SUBROUTINE XELR4
+C*****
       SUBROUTINE XELR41(NF,X0,Y0,ZONE,R,X,Y,NL,NUF)
 C----------------------------------------------------------------------
 C   PAáÅàEHàE HA KOHEóHõE ùãEMEHTõ îPAÉMEHTA èOÑ OTBEPCTàEM
@@ -713,4 +714,4 @@ C
       CALL XRING(X0,Y0,R1,R2,R3,0.0,N5+7,360.0,4,2,0)
 C
       RETURN
-      END
+      END SUBROUTINE XELR41

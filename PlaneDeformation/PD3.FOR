@@ -50,7 +50,7 @@ C
         END DO
       END DO
       RETURN
-      END
+      END SUBROUTINE PDQQ
 C*****
       SUBROUTINE PDIN3(II,KK,R,DR,DK,  F,G,OM)
 C--------------------------------------------------------------------
@@ -113,7 +113,7 @@ C
       G(2,3)=G(3,2)
       G(1,2)=G(2,1)
       RETURN
-      END
+      END SUBROUTINE PDIN3
 C*****
       SUBROUTINE PDST3(dr,DK)
 C---------------------------------------------------------------------
@@ -162,7 +162,7 @@ C
       tt(LPR)=tt(LPR)-ETA*QDr+ETA*DK
     1 CONTINUE
       RETURN
-      END
+      END SUBROUTINE PDST3
 C*****
       SUBROUTINE MATR3(a)
 C----------------------------------------------------------------------
@@ -187,5 +187,5 @@ C----------------------------------------------------------------------
       a(3,2)=a(2,3)
       a(3,3)=d33/d
       RETURN
-      END
+      END SUBROUTINE MATR3
 

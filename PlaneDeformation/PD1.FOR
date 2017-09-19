@@ -1,3 +1,4 @@
+      PROGRAM PD
 C----------------------------------------------------------------------
 C             POƒPAMMA PE˜EHˆŸ ƒPAHˆ—H›X ‡A„A— TEOPˆˆ
 C    MˆKPO„E”OPMA–ˆˆ Pˆ ‹OCKO‰ „E”OPMA–ˆˆ ˆ‹ˆ ‹OCKOM HAPŸ†EHHOM
@@ -146,7 +147,8 @@ C
       close(31)
       CLOSE(9,STATUS='DELETE')
       STOP
-      END
+      END PROGRAM PD
+C*****
       SUBROUTINE PDUPR(ip,isx,isy,isxy,isi,iux,iuy,A0,K2)
 C----------------------------------------------------------------------
 C     OCTPOEHˆE “P“ƒOƒO PE˜EHˆŸ ‡A„A—ˆ „‹Ÿ HAƒP“‡Kˆ B KOHE—HO‰
@@ -225,8 +227,8 @@ C
    40 CONTINUE
       CALL PDRES(0,ip,isx,isy,isxy,isi,iux,iuy)
       RETURN
-      END
-C
+      END SUBROUTINE PDUPR
+C*****
       SUBROUTINE PDRES(iii,IP,ISX,ISY,ISXY,ISI,IUX,IUY)
 C----------------------------------------------------------------------
 C        PO–E„“PA B›BO„A PE‡“‹œTATOB PAC—ETA HA E—ATœ
@@ -497,7 +499,8 @@ C
   502 FORMAT(5X,E10.3)
 C
   500 RETURN
-      END
+      END SUBROUTINE PDRES
+C*****
       SUBROUTINE XABND(K,NNOD,MM,NN,NUF,IM,IPROB)
 C----------------------------------------------------------------------
 C    O„POƒPAMMA ”OPMˆPOBAHˆŸ ƒPAHˆ—H›X “C‹OBˆ‰ O EPEME™EHˆŸM
@@ -579,12 +582,12 @@ C
       mzd(n+1)=nnod*2-1
       mzd(n+2)=nnod*2
    50 RETURN
-      END
-C
+      END SUBROUTINE XABND
+C*****
       subroutine pdresu(ins,ip,isx,isy,isxy,isi,iux,iuy)
       read(5,1) ins,ip,isx,isy,isxy,isi,iux,iuy
    1  format(///14x,i1////14x,i1/14x,i1/14x,i1/14x,i1/14x,i1
      */14x,i1/14x,i1)
       close(5)
       return
-      end
+      end subroutine pdresu
