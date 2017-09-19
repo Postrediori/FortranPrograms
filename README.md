@@ -12,7 +12,7 @@ the Makefile project files were added.
 Files are still encoded in [CP866](https://en.wikipedia.org/wiki/Code_page_866)
 to comply with the console output in Windows systems.
 
-## Build With
+## Built With
 
 * Microsoft Fortran PowerStation 4.0
 * Compaq Visual Fortran 6.6
