@@ -1,3 +1,4 @@
+      PROGRAM AD
 C----------------------------------------------------------------------
 C             POƒPAMMA PE˜EHˆŸ ƒPAHˆ—H›X ‡A„A— TEOPˆˆ ‹€‘’ˆ—Ž‘’ˆ
 C                      Pˆ AHTˆ‹OCKO‰ „E”OPMA–ˆˆ
@@ -146,8 +147,8 @@ C
       CLOSE(328)
       CLOSE(33)
       STOP
-      END
-C
+      END PROGRAM AD
+C*****
       SUBROUTINE APQQ
 C-----------------------------------------------------------------------
 C          BCOMAƒATE‹œHAŸ PO–E„“PA B›—ˆC‹EHˆŸ MACCˆBOB QQ ˆ DOM
@@ -187,8 +188,8 @@ C-----------------------------------------------------------------------
          END DO
       END DO
       RETURN
-      END
-C
+      END SUBROUTINE APQQ
+C*****
       SUBROUTINE APIN2(r,dr,dk,   F,G,OM)
 C-----------------------------------------------------------------------
 C            O„POƒPAMMA „‹Ÿ B›—ˆC‹EHˆŸ ˆHTEƒPA‹OB
@@ -228,8 +229,8 @@ C     ”OPMˆPOBAHˆE HAPAB‹EHˆ‰ AKTˆBHOƒO MˆKPO„E”OPMˆPOBAHˆŸ
       END DO
       G(1,2)=G(2,1)
       RETURN
-      END
-C
+      END SUBROUTINE APIN2
+C*****
       SUBROUTINE APDIN2M(R,DR,AK,ALMAX,  AL,F,G,OM)
 C----------------------------------------------------------------------
 C     OPE„E‹EHˆE F(I),G(I,J),OM Pˆ MOHOTOHHOM HAƒP“†EHˆˆ
@@ -270,8 +271,8 @@ C
       END DO
 C
       RETURN
-      END
-C
+      END SUBROUTINE APDIN2M
+C*****
       SUBROUTINE PDFT(R,DR,AK,almax,  AL,F1)
 C----------------------------------------------------------------------
 C    OPE„E‹EHˆE APAMETPA AL=ALFA
@@ -291,8 +292,8 @@ C
       if(al.lt.almax) return
       IF((R(1)*DR(1)+R(2)*DR(2)).LT.0.0) AL=0.0
       RETURN
-      END
-C
+      END SUBROUTINE PDFT
+C*****
       SUBROUTINE APDDDD(II,KK)
 C----------------------------------------------------------------------
 C    OCTPOEHˆE MATPˆ– †ECTKOCTˆ TEOPˆˆ MˆKPO„E”OPMA–ˆˆ
@@ -324,8 +325,8 @@ C
 C
       CALL APDDP(II,KK,R,DR,AK,DK)
       RETURN
-      END
-C
+      END SUBROUTINE APDDDD
+C*****
       SUBROUTINE APMATR(A)
 C----------------------------------------------------------------------
 C          OCTPOEHˆE MATPˆ–› OPATHO‰ K MATPˆ–E A(2,2)
@@ -342,8 +343,8 @@ C
       A(2,2)=D1/D
 C
       RETURN
-      END
-C
+      END SUBROUTINE APMATR
+C*****
       SUBROUTINE APST2(DR,DK)
 C-----------------------------------------------------------------------
 C     O„POƒPAMMA „‹Ÿ B›—ˆC‹EHˆŸ ˆHTEHCˆBHOCTˆ PA‡PE˜Až™ˆX
@@ -373,8 +374,8 @@ C   O‹ACTœ POTˆBOO‹O†H›X HAPAB‹EHˆ‰
       T(LPR)=T(LPR)-ETA*QDS+ETA*DK
     1 CONTINUE
       RETURN
-      END
-C
+      END SUBROUTINE APST2
+C*****
       SUBROUTINE APDFF(N)
       COMMON
      */BL1A/LH,AA1(1100)
@@ -459,8 +460,8 @@ C  10  FP(I)=0.0
   110 FORMAT(20X,'—ˆC‹O AKTˆBH›X HAPAB‹EHˆ‰ PABHO  ',I6/)
 C
       RETURN
-      END
-c
+      END SUBROUTINE APDFF
+C*****
       SUBROUTINE APDRES(iii,IPR,IU,ISXZ,ISYZ,ISI,IBUIL,NEE,NU)
 C----------------------------------------------------------------------
 C          PO–E„“PA B›BO„A PE‡“‹œTATOB PE˜EHˆŸ ‡A„A—ˆ
@@ -731,7 +732,8 @@ C
   501 FORMAT(5X,F10.4)
 C
   500 RETURN
-      END
+      END SUBROUTINE APDRES
+C*****
       SUBROUTINE APDUPR(A0,K2)
 C----------------------------------------------------------------------
 C     OCTPOEHˆE “P“ƒOƒO PE˜EHˆŸ ‡A„A—ˆ ˆ MAC˜TAˆPOBAHˆE
@@ -809,4 +811,4 @@ C
           ZJUPR=ZJSR
 C
       RETURN
-      END
+      END SUBROUTINE APDUPR

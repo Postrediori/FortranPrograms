@@ -7,7 +7,8 @@ C----------------------------------------------------------------------
            A2=A1*R1
            A3=A1*AK0
       RETURN
-      END
+      END SUBROUTINE APDAI
+C*****
       SUBROUTINE APDCOB(XI,ET,IG)
 C----------------------------------------------------------------------
 C     îOPMàPOBAHàE MATPàñõ ÑàîîEPEHñàPOBAHàü
@@ -119,7 +120,8 @@ C
    55 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE APDCOB
+C*****
       SUBROUTINE APDDAT
 C----------------------------------------------------------------------
 C    BõáOB èPOñEÑìPõ èOÑÉOTOBKà àCXOÑHõX ÑAHHõX à èOÑÉOTOBKA HAÉPìáKà
@@ -174,7 +176,8 @@ C
     4 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE APDDAT
+C*****
       SUBROUTINE APDDP(II,KK,r,dr,AK,dk)
 C----------------------------------------------------------------------
 C  èOCTPOEHàE MATPàñõ KACATEãúHOâ ÜECTKOCTà èO TEOPàà MàKPOÑEîOPMAñàà
@@ -243,7 +246,8 @@ C         ÑEîOPMAñàà Ñãü ìèPìÉOÉO à èãACTàóECKOÉO ÑEîOPMàPOBAHàü
       DD(I,J)=T0/ES*(Z-DP(I,J))
    60 CONTINUE
       RETURN
-      END
+      END SUBROUTINE APDDP
+C*****
       SUBROUTINE APDDEF(U,E)
 C----------------------------------------------------------------------
 C    BõóàCãEHàE ÑEîOPMAñàâ B ìáãAX àHTEÉPàPOBAHàü
@@ -258,7 +262,8 @@ C
     1 E(I)=E(I)+B(I,J)*U(J)
 C
       RETURN
-      END
+      END SUBROUTINE APDDEF
+C*****
       SUBROUTINE APDES(ii,kk,DE,  DS,DR,de1,DK)
 C----------------------------------------------------------------------
 C èPOñEÑìPA èOCTPOEHàü CKOPOCTEâ àáMEHEHàü HAèPüÜEHàâ-DS(2)
@@ -297,7 +302,8 @@ C
       DS(I)=(DE(I)-DE1(I))*T0/ES
    30 DK=DK+F(I)*DR(I)*AM1
       RETURN
-      END
+      END SUBROUTINE APDES
+C*****
       SUBROUTINE APDDGN(IG,JIN)
 C----------------------------------------------------------------------
 C èPEOÅPAáOBAHàE  óETõPEXìÉOãúHõX  KOHEóHõX  ùãEMEHTOB  B  TPEìÉOãúHõE
@@ -316,7 +322,8 @@ C
       IF(IG.GT.8) IG=IG-8
 C
       RETURN
-      END
+      END SUBROUTINE APDDGN
+C*****
       SUBROUTINE APDELM(II,IG)
 C----------------------------------------------------------------------
 C     II - HOMEP ùãEMEHTA
@@ -339,7 +346,8 @@ C
    2  XY(K,2)=XYT(2,J)
 C
       RETURN
-      END
+      END SUBROUTINE APDELM
+C*****
       SUBROUTINE APDFOR(LL,IFF)
 C----------------------------------------------------------------------
 C    îOPMàPOBAHàE MATPàñõ CàCTEMõ à EE èPABOâ óACTà
@@ -421,8 +429,8 @@ C
    96 CONTINUE
   116 CONTINUE
   115 RETURN
-      END
-C
+      END SUBROUTINE APDFOR
+C*****
       SUBROUTINE APDNOD(W,NNOD)
 C----------------------------------------------------------------------
 C    èPOñEÑìPA ùKCTPAèOãüñàà èOãEâ áAÑAHHõX B ìáãAX àHTEÉPàPOBAHàü
@@ -471,7 +479,8 @@ C
   800 W(I)=SN(I)/LK(I)
 C
       RETURN
-      END
+      END SUBROUTINE APDNOD
+C*****
       SUBROUTINE APDPR(JS,P1,P2,AH)
 C----------------------------------------------------------------------
 C       BõóàCãEHàE BEKTPA BHEòHEâ HAÉPìáKà ùãEMEHTA AH(8)
@@ -524,7 +533,8 @@ C
   90  CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE APDPR
+C*****
       FUNCTION APDRR(X,XI,ET)
       DIMENSION AN(8),X(8)
       X1=1.0-XI
@@ -543,7 +553,8 @@ C
                          DO 1 I=1,8
     1                    APDRR=APDRR+X(I)*AN(I)
       RETURN
-      END
+      END FUNCTION APDRR
+C*****
       SUBROUTINE APDSE(K,DA,LA,K1,A0)
 C----------------------------------------------------------------------
 C     A,DA(3)-BEKTOP à EÉO èPàPAôEHàE B TOóKE-K;
@@ -561,7 +572,8 @@ C
       IF(K.EQ.N2-1) K1=K1+1
 C
       RETURN
-      END
+      END SUBROUTINE APDSE
+C*****
       SUBROUTINE APDSOL(N)
 C----------------------------------------------------------------------
 C  èPOñEÑìPA PEòEHàü CàCTEMõ Ñàî.ìPABHEHàâ METOÑOM ùâãEPA
@@ -575,7 +587,8 @@ C
     1 SUM(I)=SUM(I)+FP(I)
 C
       RETURN
-      END
+      END SUBROUTINE APDSOL
+C*****
       SUBROUTINE APDST(IG,II)
 C----------------------------------------------------------------------
 C     îOPMàPOBAHàE MATPàñõ ÜECTKOCTà ùãEMEHTA AKT(8,8)
@@ -616,7 +629,8 @@ C
    20 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE APDST
+C*****
       SUBROUTINE APDSTR(K)
 C----------------------------------------------------------------------
 C   BõóàCãEHàE HAèPüÜEHàâ. K- HOMEP ìáãA àHTEÉPàPOBAHàü
@@ -631,7 +645,8 @@ C
     1 SIG(I,K)=SIG(I,K)+EPS(J,K)*DD(I,J)
 C
       RETURN
-      END
+      END SUBROUTINE APDSTR
+C*****
       SUBROUTINE APDSUB(L1,N1,I1)
 C
       COMMON
@@ -660,7 +675,8 @@ C
    40    CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE APDSUB
+C*****
       SUBROUTINE APDTRT(L1,N1,N,IB)
 C
       COMMON/BL1/A(60000)
@@ -693,7 +709,8 @@ C
    40 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE APDTRT
+C*****
       SUBROUTINE XABLOC(NELX,ITEORX)
 C----------------------------------------------------------------------
 C     èEPEÑAóA ÑAHHõX óEPEá ÅãOKà COMMON
@@ -754,7 +771,8 @@ C
     4 CONTINUE
 C
       RETURN
-      END
+      END SUBROUTINE XABLOC
+C*****
       SUBROUTINE XABND(K,NNOD,MM,NN,NUF,IM,IPROB)
 C----------------------------------------------------------------------
 C    èOÑèPOÉPAMMA îOPMàPOBAHàü ÉPAHàóHõX ìCãOBàâ èO èEPEMEôEHàüM
@@ -793,4 +811,4 @@ C
     4 MZD(N)=NUF(NF,M)
 C
    50 RETURN
-      END
+      END SUBROUTINE XABND
