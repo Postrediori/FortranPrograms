@@ -13,13 +13,14 @@ C----------------------------------------------------------------------
 C
       NN=2*NNOD
       N1=NN+(II-1)*32+(KK-1)*8
-           DO 10 I=1,3
-           DR(I)=FP(N1+4+I)
-  10       R(I)=SUM(N1+4+I)
-           DK=FP(N1+8)
+      DO I=1,3
+        DR(I)=FP(N1+4+I)
+        R(I)=SUM(N1+4+I)
+      END DO
+      DK=FP(N1+8)
       N3=(II-1)*4+KK
       DO I=1,LP
-         T(I)=TCOM(LP*(N3-1)+I)
+        T(I)=TCOM(LP*(N3-1)+I)
       END DO
 C
       CALL PDDDP(II,KK,r,dr,dk)
@@ -46,15 +47,19 @@ C
 C----------
 C     ìèPìÉOE ÑEîOPMàPOBAHàE
 C
-      DO 1 I=1,4
-      DO 1 J=1,4
-    1 DP(I,J)=0.0
+      DO I=1,4
+        DO J=1,4
+          DP(I,J)=0.0
+        END DO
+      END DO
 C
-      DO 2 I=1,3
-      DO 2 J=1,3
-      Z=0.0
-      IF(I.EQ.J) Z=1.0
-    2 DD(I,J)=T0/ES*Z
+      DO I=1,3
+      DO J=1,3
+        Z=0.0
+        IF(I.EQ.J) Z=1.0
+          DD(I,J)=T0/ES*Z
+        END DO
+      END DO
 C
       CALL PDGUK
 C      IF(II.EQ.1.AND.KK.EQ.1) PRINT 789,((dp(i,j),j=1,4),i=1,4)
@@ -70,30 +75,38 @@ C
 C
 C     (BõóàCãEHàE MATPàñõ G B èOÑBàÜHOM ÑEBàATOPHOM ÅAáàCE)
 C
-      DO 3 I=1,3
-      DO 3 J=1,3
-    3 G(I,J)=G(I,J)-AM1*F(I)*F(J)
+      DO I=1,3
+        DO J=1,3
+          G(I,J)=G(I,J)-AM1*F(I)*F(J)
+        END DO
+      END DO
 C
-      DO 5 I=1,3
-      DO 5 J=1,3
-      Z=0.0
-      IF(I.EQ.J) Z=1.0
-    5 G1(I,J)=Z+A2*G(I,J)/A1
+      DO I=1,3
+        DO J=1,3
+          Z=0.0
+          IF(I.EQ.J) Z=1.0
+          G1(I,J)=Z+A2*G(I,J)/A1
+        END DO
+      END DO
 C
       CALL MATR3(G1)
 C
-      DO 6 I=1,3
-      DO 6 J=1,3
-      D1(I,J)=0.0
-      DO 6 LL=1,3
-    6 D1(I,J)=D1(I,J)+G1(I,LL)*G(LL,J)/A1
+      DO I=1,3
+        DO J=1,3
+          D1(I,J)=0.0
+          DO LL=1,3
+            D1(I,J)=D1(I,J)+G1(I,LL)*G(LL,J)/A1
+          END DO
+        END DO
+      END DO
 C
-      DO 7 I=1,3
-      DO 7 J=1,3
-      Z=0.0
-      IF(I.EQ.J) Z=1.0
-      DD(I,J)=T0/ES*(Z-D1(I,J))
-    7 CONTINUE
+      DO I=1,3
+        DO J=1,3
+          Z=0.0
+          IF(I.EQ.J) Z=1.0
+          DD(I,J)=T0/ES*(Z-D1(I,J))
+        END DO
+      END DO
 C
 C (îOPMàPOBAHàE MATPàñõ CBüáà MEÜÑì TEHáOPAMà HAèPüÜEHàü à ÑEîOPMAñàà
 C                 Ñãü CãìóAü èãOCKOâ ÑEîOPMAñàà)
@@ -123,12 +136,15 @@ C
 C  (MATPàñA CBüáà DP(I,J) Ñãü CãìóAü èãOCKOÉO HAèPüÜEHHOÉO COCTOüHàü)
 C
       IF(INS.EQ.0) GO TO 20
-      DO 8 I=1,3
-      DO 8 J=1,3
-    8 DP(I,J)=DP(I,J)-DP(I,4)*DP(4,J)/DP(4,4)
-      DO 9 I=1,3
-      DP(4,I)=0.0
-    9 DP(I,4)=0.0
+      DO I=1,3
+        DO J=1,3
+          DP(I,J)=DP(I,J)-DP(I,4)*DP(4,J)/DP(4,4)
+        END DO
+      END DO
+      DO I=1,3
+        DP(4,I)=0.0
+        DP(I,4)=0.0
+      END DO
 C----------
    20	CONTINUE
 c      IF(II.EQ.1.AND.KK.EQ.1) PRINT 789,((dp(i,j),j=1,4),i=1,4)
@@ -147,7 +163,9 @@ C
       E=T0/ES*(1.0+ANU)
       ANU1=ANU
       IF(INS) 20,20,30
+C     <= 0
   20  ANU1=ANU/(1.0-ANU)
+C     > 0
   30  DP(1,1)=1.0
       DP(1,2)=ANU1
       DP(1,4)=ANU1
@@ -159,9 +177,11 @@ C
       DP(4,2)=ANU1
       DP(4,4)=1.0
 C
-      DO 40 I=1,4
-      DO 40 J=1,4
-   40 DP(I,J)=DP(I,J)*E/((1.0+ANU)*(1.0-ANU1))
+      DO I=1,4
+        DO J=1,4
+          DP(I,J)=DP(I,J)*E/((1.0+ANU)*(1.0-ANU1))
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE PDGUK
@@ -187,10 +207,12 @@ C
       do i=1,3
          de1(i)=0.0
       end do
-      DO 20 I=1,4
-      DS(I)=0.0
-      DO 20 J=1,4
-   20 DS(I)=DS(I)+DP(I,J)*DE(J)
+      DO I=1,4
+        DS(I)=0.0
+        DO J=1,4
+          DS(I)=DS(I)+DP(I,J)*DE(J)
+        END DO
+      END DO
       IF(INS.EQ.1) DS(4)=0.0
            CALL PDTEVE(DE,DR)
       DK=0.0
@@ -199,17 +221,21 @@ C
 C     èãACTàóECKOE ÑEîOPMàPOBAHàE
 C
    10 DK=0.0
-      DO 30 I=1,3
-      DE1(I)=0.0
-          CALL PDTEVE(DE,DEE)
-      DO 40 J=1,3
-   40 DE1(I)=DE1(I)-DD(I,J)*DEE(J)
-      DR(I)=DEE(I)-A2*DE1(I)
-   30 DK=DK+F(I)*DR(I)*AM1
-      DO 60 I=1,4
-      DS(I)=0.0
-      DO 60 J=1,4
-   60 DS(I)=DS(I)+DP(I,J)*DE(J)
+      DO I=1,3
+        DE1(I)=0.0
+        CALL PDTEVE(DE,DEE)
+        DO J=1,3
+          DE1(I)=DE1(I)-DD(I,J)*DEE(J)
+        END DO
+        DR(I)=DEE(I)-A2*DE1(I)
+        DK=DK+F(I)*DR(I)*AM1
+      END DO
+      DO I=1,4
+        DS(I)=0.0
+        DO J=1,4
+          DS(I)=DS(I)+DP(I,J)*DE(J)
+        END DO
+      END DO
 c      PRINT 789,((dp(i,j),j=1,4),i=1,4)
  789  FORMAT(2x,'ds',4f12.2)
       IF(INS.EQ.1) DS(4)=0.0
@@ -232,5 +258,5 @@ C
       VEC(2)=1.414/2.*(TEN(1)+2*TEN(2)-3*TEN0)
       VEC(3)=1.414*TEN(3)/2.0
 C
-       RETURN
-       END SUBROUTINE PDTEVE
+      RETURN
+      END SUBROUTINE PDTEVE

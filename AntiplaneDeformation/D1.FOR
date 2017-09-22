@@ -42,7 +42,7 @@ C
       IF(IPROB.EQ.3) NN(3)=2
       NN(4)=NGOR2
 C
-      DO 1 J=1,LN
+      DO J=1,LN
            X(1,3*J-2)=0.0
            X(2,3*J-2)=XZ1
            X(3,3*J-2)=XZ1
@@ -73,9 +73,9 @@ C
                X(3,3*J)=XZ1+ZONE+XZ2
                X(4,3*J)=XZ1+ZONE/2.*(1.0+AKOEF)
            END IF
-    1 CONTINUE
+      END DO
 C
-      DO 2 I=1,LM
+      DO I=1,LM
            Y(1,I)=0.0
            Y(2,I)=0.0
            Y(3,I)=YZ1
@@ -95,7 +95,7 @@ C
            Y(2,9+I)=YZ1+ZONE
            Y(3,9+I)=YZ1+ZONE+YZ2
            Y(4,9+I)=YZ1+ZONE+YZ2
-    2 CONTINUE
+      END DO
 C
       KLIN=0
       IF(IPROB.NE.2) ALFA=0.0
@@ -108,8 +108,9 @@ C
            Y(1,7)=Y(1,7)+(ZONE/2.+XZ1)*TAN(ALFA/2.)
    21 CONTINUE
 C
-      DO 3 I=1,NF
-    3 NSF(I)=1
+      DO I=1,NF
+        NSF(I)=1
+      END DO
       NSF(5)=2
       IF(IPROB.EQ.3) NSF(5)=4
       NSF(8)=3
@@ -117,21 +118,30 @@ C
 C
       LN2=LN+2
       LM2=LM+2
-      DO 4 J=1,LN2
-      DO 4 I=1,LM2
-    4 ISF(I,J)=0
-           LN1=LN+1
-           LM1=LM+1
-           DO 5 J=2,LN1
-           DO 5 I=2,LM1
-    5      ISF(J,I)=(I-1)+(J-2)*LM
+      DO J=1,LN2
+        DO I=1,LM2
+          ISF(I,J)=0
+        END DO
+      END DO
 C
-      DO 6 I=1,LM
-      DO 6 J=1,LN
-      KOLVO=NN(J)
-      NF1=(J-1)*LM+I
-      DO 6 K=1,KOLVO
-    6 NLD(NF1,K)=MM(I)
+      LN1=LN+1
+      LM1=LM+1
+      DO J=2,LN1
+        DO I=2,LM1
+          ISF(J,I)=(I-1)+(J-2)*LM
+        END DO
+      END DO
+C
+      DO I=1,LM
+        DO J=1,LN
+          KOLVO=NN(J)
+          NF1=(J-1)*LM+I
+          DO K=1,KOLVO
+            NLD(NF1,K)=MM(I)
+          END DO
+        END DO
+      END DO
+C
            NLD(5,1)=16
            NLD(8,1)=16
            IF(IM.EQ.1) NLD(5,1)=20
@@ -148,15 +158,19 @@ C
                NLD(8,2)=22
    22          CONTINUE
 C
-      DO 7 I=1,LM
-      DO 7 J=1,LN
-      KOLVO=2*NN(J)+1
-      NF1=(J-1)*LM+I
-           DO 8 K=1,KOLVO,2
-    8      NUFD(NF1,K)=2*MM(I)
-                DO 9 L=2,KOLVO,2
-    9           NUFD(NF1,L)=MM(I)
-    7 CONTINUE
+      DO I=1,LM
+        DO J=1,LN
+          KOLVO=2*NN(J)+1
+          NF1=(J-1)*LM+I
+          DO K=1,KOLVO,2
+            NUFD(NF1,K)=2*MM(I)
+          END DO
+          DO L=2,KOLVO,2
+            NUFD(NF1,L)=MM(I)
+          END DO
+        END DO
+      END DO
+C
            NUFD(5,1)=4
            NUFD(5,2)=34
            NUFD(5,3)=16
@@ -251,14 +265,19 @@ C
              LNKL=LN/2
                 LN2=LNKL+2
                 LM2=LM+2
-                DO 25 J=1,LN2
-                DO 25 I=1,LM2
-   25           ISF(I,J)=0
+                DO J=1,LN2
+                  DO I=1,LM2
+                    ISF(I,J)=0
+                  END DO
+                END DO
+C
                    LN1=LNKL+1
                    LM1=LM+1
-                   DO 26 J=2,LN1
-                   DO 26 I=2,LM1
-   26              ISF(J,I)=(I-1)+(J-2)*LM
+                   DO J=2,LN1
+                     DO I=2,LM1
+                      ISF(J,I)=(I-1)+(J-2)*LM
+                     END DO
+                   END DO
              NFKL=LM*LNKL
 C
              CALL XREG( MM,NN,LM,LNKL,NFKL,X,Y,ISF,NSF,NUFD,NLD,ZONE,
@@ -312,14 +331,16 @@ C     PRINT 1001,(J,(XYT(I,J),I=1,2),J=1,NNOD)
 c      PRINT 1005,(J,LTEL(J),LST(J),PP(1,J),J=1,NEP)
 c     PRINT 1002,NZ,(MZD(I),I=1,NZ)
   401 OPEN(7,FILE='XY.SAM')
-      DO 402 JI=1,NNOD
-  402 WRITE (7,403) XYT(1,JI),XYT(2,JI)
+      DO JI=1,NNOD
+        WRITE (7,403) XYT(1,JI),XYT(2,JI)
+      END DO
   403 FORMAT(5X,2F10.3)
       CLOSE(7)
       OPEN(7,FILE='NCM.SAM')
       JI1=1
-      DO 404 JI=1,NEL
-  404 WRITE (7,405) (NC(I,JI),I=1,8),JI1
+      DO JI=1,NEL
+        WRITE (7,405) (NC(I,JI),I=1,8),JI1
+      END DO
   405 FORMAT(5X,9I6)
       CLOSE(7)
       OPEN(7,FILE='INFO.SAM')
@@ -492,13 +513,17 @@ C
 C
       DIMENSION NL(12,10),NUF(12,30),MM(4),NN(5)
 C
-      DO 1 I=1,NEL
-      DO 1 J=1,8
-    1 NC1(J,I)=NC(J,I)
+      DO I=1,NEL
+        DO J=1,8
+          NC1(J,I)=NC(J,I)
+        END DO
+      END DO
 C
-      DO 2 I=1,NNOD
-      DO 2 J=1,2
-    2 XYT1(J,I)=XYT(J,I)
+      DO I=1,NNOD
+        DO J=1,2
+          XYT1(J,I)=XYT(J,I)
+        END DO
+      END DO
 C
       NDEL=2*MM(1)+8
       IF(IM.EQ.1) NDEL=2*MM(1)+10
@@ -518,34 +543,40 @@ C
       NALL=2*MM(1)+2*MM(3)+21
    21 CONTINUE
 C
-      DO 3 I=NE6,NEL
-      DO 3 J=1,8
-      NC1(J,I)=NC(J,I)+NDEL
-      NC1JI=NC1(J,I)
-      NCJI=NC(J,I)
-      DO 3 K=1,2
-      XYT1(K,NC1JI)=XYT(K,NCJI)
-    3 CONTINUE
+      DO I=NE6,NEL
+        DO J=1,8
+          NC1(J,I)=NC(J,I)+NDEL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+        END DO
+      END DO
 C
       NE11=NL(8,1)-1
-      DO 41 I=NE,NE11
-      DO 41 J=1,3
-      NC1(J,I)=NC(J,I)+NALL
-      NC1JI=NC1(J,I)
-      NCJI=NC(J,I)
-      DO 41 K=1,2
-      XYT1(K,NC1JI)=XYT(K,NCJI)
-   41 CONTINUE
+      DO I=NE,NE11
+        DO J=1,3
+          NC1(J,I)=NC(J,I)+NALL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+        END DO
+      END DO
 C
       NE11=NL(8,1)-1
-      DO 42 I=NE,NE11
-      DO 42 J=4,8
-      NC1(J,I)=NC(J,I)+NDEL
-      NC1JI=NC1(J,I)
-      NCJI=NC(J,I)
-      DO 42 K=1,2
-      XYT1(K,NC1JI)=XYT(K,NCJI)
-   42 CONTINUE
+      DO I=NE,NE11
+        DO J=4,8
+          NC1(J,I)=NC(J,I)+NDEL
+          NC1JI=NC1(J,I)
+          NCJI=NC(J,I)
+          DO K=1,2
+            XYT1(K,NC1JI)=XYT(K,NCJI)
+          END DO
+        END DO
+      END DO
 C
       DO I=NL(8,1),NE1
         DO J=3,5
@@ -614,21 +645,26 @@ C
 C
       NNOD=NNOD+NDEL
 C
-      DO 8 I=1,NEL
-      DO 8 J=1,8
-    8 NC(J,I)=NC1(J,I)
+      DO I=1,NEL
+        DO J=1,8
+          NC(J,I)=NC1(J,I)
+        END DO
+      END DO
 C
-      DO 9 I=1,NNOD
-      DO 9 J=1,2
-    9 XYT(J,I)=XYT1(J,I)
+      DO I=1,NNOD
+        DO J=1,2
+          XYT(J,I)=XYT1(J,I)
+        END DO
+      END DO
 C
       NUF(7,1)=NUF(7,1)+NALL
       NUF(7,2)=NUF(7,2)+NDEL
       NUF(7,3)=NUF(7,3)+NDEL
 C
       NN4=NN(4)*2+1
-      DO 10 I=1,NN4
-   10 NUF(10,I)=NUF(10,I)+NDEL
+      DO I=1,NN4
+        NUF(10,I)=NUF(10,I)+NDEL
+      END DO
 C
       RETURN
       END SUBROUTINE XCRACK
@@ -645,38 +681,42 @@ C
 C
       NN=(2*N+1)*(M+1)+(N+1)*M
 C
-      DO 10 J=1,N
-      NL1=NL(J)
-      NJ1=NU(2*J-1)
-      NJ2=NU(2*J)
-      NJ3=NU(2*J+1)
-      DO 10 I=1,M
-      NEL=NL1+I-1
-      NJ=NJ1+2*(I-1)
-      NC(1,NEL)=NJ
-      NC(2,NEL)=NJ+1
-      NC(3,NEL)=NJ+2
-      NJ=NJ2+I-1
-      NC(4,NEL)=NJ+1
-      NC(8,NEL)=NJ
-      NJ=NJ3+2*(I-1)
-      NC(7,NEL)=NJ
-      NC(6,NEL)=NJ+1
-   10 NC(5,NEL)=NJ+2
+      DO J=1,N
+        NL1=NL(J)
+        NJ1=NU(2*J-1)
+        NJ2=NU(2*J)
+        NJ3=NU(2*J+1)
+        DO I=1,M
+          NEL=NL1+I-1
+          NJ=NJ1+2*(I-1)
+          NC(1,NEL)=NJ
+          NC(2,NEL)=NJ+1
+          NC(3,NEL)=NJ+2
+          NJ=NJ2+I-1
+          NC(4,NEL)=NJ+1
+          NC(8,NEL)=NJ
+          NJ=NJ3+2*(I-1)
+          NC(7,NEL)=NJ
+          NC(6,NEL)=NJ+1
+          NC(5,NEL)=NJ+2
+        END DO
+      END DO
 C
       M2=M+1
       N2=N+1
 C
-      DO 40 J=1,N2
-      NJ1=NU(2*J-1)
-      DO 40 I=1,M2
-      NJ=NJ1+2*(I-1)
-      X1=X(1)+(X(4)-X(1))/N*(J-1)
-      Y1=Y(1)+(Y(4)-Y(1))/N*(J-1)
-      Y2=Y(2)+(Y(3)-Y(2))/N*(J-1)
-      X2=X(2)+(X(3)-X(2))/N*(J-1)
-      XYT(1,NJ)=X1+(X2-X1)/M*(I-1)
-  40  XYT(2,NJ)=Y1+(Y2-Y1)/M*(I-1)
+      DO J=1,N2
+        NJ1=NU(2*J-1)
+        DO I=1,M2
+          NJ=NJ1+2*(I-1)
+          X1=X(1)+(X(4)-X(1))/N*(J-1)
+          Y1=Y(1)+(Y(4)-Y(1))/N*(J-1)
+          Y2=Y(2)+(Y(3)-Y(2))/N*(J-1)
+          X2=X(2)+(X(3)-X(2))/N*(J-1)
+          XYT(1,NJ)=X1+(X2-X1)/M*(I-1)
+          XYT(2,NJ)=Y1+(Y2-Y1)/M*(I-1)
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE XELR1

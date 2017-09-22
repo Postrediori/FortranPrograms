@@ -468,13 +468,13 @@ C
       DIMENSION NL(12,10),NN(5),MM(4)
 C
       MMM=0
-      DO 1 I=1,3
+      DO I=1,3
          MMM=MMM+MM(I)
-    1 CONTINUE
+      END DO
 C
       NEP=2*MMM
 C
-      DO 2 I=1,MMM
+      DO I=1,MMM
 C  ----------------------->  îOPMàPOBAHàE HAÉPìáKà CHàáì
          LTEL(I)=I
          LST(I)=1
@@ -489,19 +489,19 @@ C  ----------------------->  îOPMàPOBAHàE HAÉPìáKà CBEPXì
             PP(2,I+MMM)=-1.0
             PT(1,I+MMM)=0.0
             PT(2,I+MMM)=0.0
-    2 CONTINUE
+      END DO
 C
       NNN=0
-      DO 3 I=1,4
+      DO I=1,4
          NNN=NNN+NN(I)
-    3 CONTINUE
+      END DO
 C
       NEP1=2*NNN
 C
       K=0
-      DO 4 I=1,4
-         NNI=NN(I)
-      DO 4 J=1,NNI
+      DO I=1,4
+        NNI=NN(I)
+        DO J=1,NNI
 C  ----------------------->  îOPMàPOBAHàE HAÉPìáKà CãEBA
          K=K+1
          L=2*K-1
@@ -521,7 +521,8 @@ C  ----------------------->  îOPMàPOBAHàE HAÉPìáKà CèPABA
             PP(2,NEP+L)=-1.0
             PT(1,NEP+L)=0.0
             PT(2,NEP+L)=0.0
-    4 CONTINUE
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE XNAGR
@@ -546,11 +547,11 @@ C
       NN(LN1-1)=1
       MM(LM1-1)=1
 C
-      DO 10 I=2,LN1
+      DO I=2,LN1
          N1=NN(I-1)
          KK=1
-         DO 20 K=1,N1
-            DO 30 L=1,2
+         DO K=1,N1
+            DO L=1,2
                DO 31 J=2,LM1
                   NOF =ISF(I,J)
                   NOF1=ISF(I,J-1)
@@ -587,46 +588,51 @@ C
   32              IF(NOF1.NE.0.AND.NSF(NOF1).GT.0 ) NF1=1
   31           NJ=NJ+NF1
                KK=KK+1
-  30        CONTINUE
-  20     CONTINUE
-  10  CONTINUE
+  30        END DO
+  20     END DO
+  10  END DO
 C
       NEL=NEL-1
       NJ=NJ-1
 C
-      DO 60 I=2,LN1
-         N1=NN(I-1)
-         N2=N1*2+1
-      DO 60 J=2,LM1
-         M1=MM(J-1)
-         NOF=ISF(I,J)
-         IF(NOF.EQ.0) GOTO 60
-         IF(NSF(NOF).LT.0) N2=2
-         DO 80 L=1,N2
-  80        NU(L)=NUF(NOF,L)
-            DO 90 M=1,N1
-  90        NL1(M)=NL(NOF,M)
-         DO 70 K=1,4
+      DO I=2,LN1
+        N1=NN(I-1)
+        N2=N1*2+1
+        DO J=2,LM1
+          M1=MM(J-1)
+          NOF=ISF(I,J)
+          IF(NOF.EQ.0) CYCLE
+          IF(NSF(NOF).LT.0) N2=2
+          DO L=1,N2
+            NU(L)=NUF(NOF,L)
+          END DO
+          DO M=1,N1
+            NL1(M)=NL(NOF,M)
+          END DO
+          DO K=1,4
             X1(K)=X(K,NOF)
-  70        Y1(K)=Y(K,NOF)
+            Y1(K)=Y(K,NOF)
+          END DO
 C
          KNS=IABS(NSF(NOF))
          GOTO (210,220,230,240,250),KNS
 C
  210     CALL XELR1(M1,N1,X1,Y1,NU,NL1)
-         GOTO 60
+         CYCLE
  220     IF(IM.EQ.0) CALL XELR2(NOF,ZONE,ZONE,X,Y,NL,NUF,KLIN,ALFA)
          IF(IM.EQ.1) CALL XELR21(NOF,ZONE,ZONE,X,Y,NL,NUF,KLIN,ALFA)
-         GOTO 60
+         CYCLE
  230     IF(IM.EQ.0) CALL XELR3(NOF,ZONE,ZONE,X,Y,NL,NUF,KLIN,ALFA)
          IF(IM.EQ.1) CALL XELR31(NOF,ZONE,ZONE,X,Y,NL,NUF,KLIN,ALFA)
-         GOTO 60
+         CYCLE
  240     IF(IM.EQ.1) CALL XELR4(NOF,X0,Y0,ZONE,R,AKOEF,X,Y,NL,NUF)
          IF(IM.EQ.0) CALL XELR41(NOF,X0,Y0,ZONE,R,AKOEF,X,Y,NL,NUF)
-         GOTO 60
+         CYCLE
  250     IF(IM.EQ.1) CALL XELR5(NOF,X0,Y0,ZONE,R,AKOEF,X,Y,NL,NUF)
          IF(IM.EQ.0) CALL XELR51(NOF,X0,Y0,ZONE,R,AKOEF,X,Y,NL,NUF)
-  60     CONTINUE
+C
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE XREG

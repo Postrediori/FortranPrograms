@@ -74,9 +74,10 @@ C
       END DO
 C
       NSUM=NNOD+20*NEL
-      DO 80 I=1,NSUM
-      FP(I)=0.0
-   80 SUM(I)=1.0E-10
+      DO I=1,NSUM
+        FP(I)=0.0
+        SUM(I)=1.0E-10
+      END DO
 C
       IF(ITEOR.EQ.1) THEN
          CALL APQQ
@@ -116,9 +117,10 @@ C
       END DO
 C
       NSUM=NNOD+20*NEL
-      DO 85 I=1,NSUM
-      FP(I)=0.0
-   85 SUM(I)=1.0E-10
+      DO I=1,NSUM
+        FP(I)=0.0
+        SUM(I)=1.0E-10
+      END DO
 C
       K1=1
       KP=LA(K2)-1
@@ -242,10 +244,12 @@ C
 C
       CALL PDFT(R,DR,AK,almax, AL,F1)
       OM=0.0
-      DO 5 I=1,2
-      F(I)=0.0
-      DO 5 J=1,2
-    5 G(I,J)=0.0
+      DO I=1,2
+        F(I)=0.0
+        DO J=1,2
+          G(I,J)=0.0
+        END DO
+      END DO
 C
       IF(AL.LT.almax)  RETURN
 C
@@ -310,9 +314,10 @@ C----------------------------------------------------------------------
       DIMENSION R(2),DR(2)
 C
       N1=NNOD+(II-1)*20+(KK-1)*5
-           DO 10 J=1,2
-           DR(J)=FP(N1+2+J)
-  10       R(J)=SUM(N1+2+J)
+           DO J=1,2
+             DR(J)=FP(N1+2+J)
+             R(J)=SUM(N1+2+J)
+           END DO
            DK=FP(N1+5)
            AK=SUM(N1+5)
 C
@@ -358,13 +363,14 @@ C
       DIMENSION DR(2)
       LPA=1
 C
-      DO 1 I=1,LP
+      DO I=1,LP
             QDS=0.0
-            DO 2 JJ=1,2
-    2       QDS=QDS+QQ(JJ,I)*DR(JJ)
+            DO JJ=1,2
+              QDS=QDS+QQ(JJ,I)*DR(JJ)
+            END DO
 C   OÅãACTú OCTAãúHõX HAèPABãEHàâ
       T(I)=T(I)+DK
-      IF(ITA(LPA).NE.I.OR.LPA.GT.NTA)   GOTO 1
+      IF(ITA(LPA).NE.I.OR.LPA.GT.NTA)   CYCLE
 
 C   OÅãACTú AKTàBHõX HAèPABãEHàâ
       T(I)=T(I)+QDS-DK
@@ -372,7 +378,7 @@ C   OÅãACTú AKTàBHõX HAèPABãEHàâ
 C   OÅãACTú èPOTàBOèOãOÜHõX HAèPABãEHàâ
       LPR=LP-I+1
       T(LPR)=T(LPR)-ETA*QDS+ETA*DK
-    1 CONTINUE
+      END DO
       RETURN
       END SUBROUTINE APST2
 C*****
@@ -754,13 +760,15 @@ C----------------------------------------------------------------------
 C
       DIMENSION E(2),A0(3,10),s(2),r(2)
 C
-      DO 10 I=1,NNOD
-   10 A1(I)=0.0
+      DO I=1,NNOD
+        A1(I)=0.0
+      END DO
 C
 C     èPABAü óACTú
 C
-      DO 20 I=1,NNOD
-   20 A1(I)=RP1(I)*A0(1,K2)+RP2(I)*A0(2,K2)
+      DO I=1,NNOD
+        A1(I)=RP1(I)*A0(1,K2)+RP2(I)*A0(2,K2)
+      END DO
 C
       CALL APDFOR(NNOD,1)
       CALL APDTRT(1,NNOD,NNOD,-1)
@@ -768,44 +776,50 @@ C
 C
 C     èOCTPOEHàE èOãEâ èEPEMEôEHàâ, HAèPüÜEHàâ à ÑEîOPMAñàâ
 C
-      DO 30 J=1,NNOD
-   30 SUM(J)=A1(J)
+      DO J=1,NNOD
+        SUM(J)=A1(J)
+      END DO
 C
-      DO 40 II=1,NEL
+      DO II=1,NEL
 C
-      CALL APDELM(II,IG)
+        CALL APDELM(II,IG)
 C
-      DO 50 I=1,8
-      J=NC(I,II)
-   50 UL(I)=A1(J)
+        DO I=1,8
+          J=NC(I,II)
+          UL(I)=A1(J)
+        END DO
 C
-      KK=1
-      DO 40 N1=1,2
-      DO 40 N2=1,2
-      CALL APDCOB(X(N1),X(N2),IG)
-      CALL APDDEF(UL,E)
+        KK=1
+        DO N1=1,2
+          DO N2=1,2
+            CALL APDCOB(X(N1),X(N2),IG)
+            CALL APDDEF(UL,E)
 C
-      DO 60 JJ=1,2
-   60 ESP(JJ,KK)=E(JJ)
+            DO JJ=1,2
+              ESP(JJ,KK)=E(JJ)
+            END DO
 C
-      CALL APDDDD(II,KK)
-      CALL APDSTR(KK)
+            CALL APDDDD(II,KK)
+            CALL APDSTR(KK)
 C
-      DO 70 J=1,2
-      S(J)=SIG(J,KK)
-   70 R(J)=S(J)*ES/T0
+            DO J=1,2
+              S(J)=SIG(J,KK)
+              R(J)=S(J)*ES/T0
+            END DO
 C
-      www(kk,ii)=www(kk,ii)+(s(1)*r(1)+s(2)*r(2))
+            www(kk,ii)=www(kk,ii)+(s(1)*r(1)+s(2)*r(2))
 C
-      M1=NNOD+(II-1)*20+(KK-1)*5
-           SUM(M1+1)=S(1)
-           SUM(M1+2)=S(2)
-           SUM(M1+3)=R(1)
-           SUM(M1+4)=R(2)
-           SUM(M1+5)=0.0
-   82         CONTINUE
-      KK=KK+1
-   40 CONTINUE
+            M1=NNOD+(II-1)*20+(KK-1)*5
+            SUM(M1+1)=S(1)
+            SUM(M1+2)=S(2)
+            SUM(M1+3)=R(1)
+            SUM(M1+4)=R(2)
+            SUM(M1+5)=0.0
+   82       CONTINUE
+            KK=KK+1
+          END DO
+        END DO
+      END DO
 C
       CALL APDRES(0,1,1,1,1,1,0,0,0)
           ZJUPR=ZJSR

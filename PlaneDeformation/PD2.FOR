@@ -27,30 +27,34 @@ C
       write(6,200)
   200 FORMAT(//25X,'*** áAÑAóA èãOCKOâ ÑEîOPMAñàà ***')
 C
-      DO 300 I=1,NZ
- 300  AMZ(I)=0.0
+      DO I=1,NZ
+        AMZ(I)=0.0
+      END DO
 C
 C      îOPMàPOBAHàE  HAÉPìáKà HA èEPBOM ìóACTKE
 C
       NN=2*NNOD
 C
       IF(NEP.LE.0)  GOTO 601
-      DO 560 I=1,NN
-  560 A1(I)=0.0
+      DO I=1,NN
+        A1(I)=0.0
+      END DO
       CALL PDFOR(NN,1)
-      DO 562 I=1,NN
-  562 RP1(I)=A1(I)
+      DO I=1,NN
+        RP1(I)=A1(I)
+      END DO
 C
 C    îOPMàPOBAHàE  HAÉPìáKà  HA  BTOPOM  ìóACTKE
 C
   601 IF(NEP1.LE.0)  GOTO 600
-      DO 1 I=1,NEP1
-      LTEL(I)=LTEL(NEP+I)
-      LST(I)=LST(NEP+I)
-      PP(1,I)=PP(1,NEP+I)
-      PP(2,I)=PP(2,NEP+I)
-      PT(1,I)=PT(1,NEP+I)
-    1 PT(2,I)=PT(2,NEP+I)
+      DO I=1,NEP1
+        LTEL(I)=LTEL(NEP+I)
+        LST(I)=LST(NEP+I)
+        PP(1,I)=PP(1,NEP+I)
+        PP(2,I)=PP(2,NEP+I)
+        PT(1,I)=PT(1,NEP+I)
+        PT(2,I)=PT(2,NEP+I)
+      END DO
       if(ltwo.eq.1) then
          do i=(nep1/2+1),nep1,2
             pp(1,i)=-pp(1,i)
@@ -58,11 +62,13 @@ C
          end do
       end if
       NEP=NEP1
-      DO 582 I=1,NN
-  582 A1(I)=0.0
+      DO I=1,NN
+        A1(I)=0.0
+      END DO
       CALL PDFOR(NN,1)
-      DO 564 I=1,NN
-  564 RP2(I)=A1(I)
+      DO I=1,NN
+        RP2(I)=A1(I)
+      END DO
   600 CONTINUE
       RETURN
       END SUBROUTINE PDDATA
@@ -86,18 +92,23 @@ C----------------------------------------------------------------------
 C
       JJ=NN*LH
       IF(IFF) 5,5,7
-    5 DO 10 I=1,JJ
-   10 A(I)=0.0
+C     IFF <= 0
+    5 DO I=1,JJ
+        A(I)=0.0
+      END DO
       GO TO 13
-    7 DO 6 I=1,NN
-    6 A1(I)=0.0
-C
+C     IFF >0
+    7 DO I=1,NN
+        A1(I)=0.0
+      END DO
+C     END IF
   13  IP=1
 C
       DO 50 JJ=1,NEL
 C
-      DO 49 I1=1,16
-   49 HPT(I1)=0.0
+      DO I1=1,16
+        HPT(I1)=0.0
+      END DO
 C
       CALL PDELM(JJ,IG)
       IF(IFF.EQ.0) CALL PDSTIF(JJ,IG)
@@ -131,8 +142,9 @@ C
       IF(IFF.GT.0)  GOTO 85
       M=(MZD(I)-1)*LH+1
       J=M+LH-1
-      DO 80 K=M,J
-   80 A(K)=0.0
+      DO K=M,J
+        A(K)=0.0
+      END DO
       A(M)=1.0
    85 M=MZD(I)
       A1(M)=0.0
@@ -165,66 +177,74 @@ C*****
 C
       NN=NNOD*2
 C
-      DO 10 I=1,N
-   10 FP(I)=0.0
+      DO I=1,N
+        FP(I)=0.0
+      END DO
 C
       numiter=3
       LL=0
       L2=0
    20 LL=LL+1
 C
-      DO 30 I=1,NN
-   30 AA1(I)=RP(I)
-           CALL PDFOR(NN,0)
-           CALL PDSTRT(1,NN,NN,-1)
-           CALL PDBSUB(1,NN,0)
-      DO 40 II=1,NEL
-           CALL PDELM(II,IG)
-      DO 50 I=1,16
-      J=LEC(I)
-      UL(I)=SUM(J)
-   50 DUL(I)=AA1(J)
-      KK=1
-      DO 40 M=1,2
-      DO 40 N2=1,2
-           CALL PDCOB(X(M),X(N2),IG)
-           CALL PDDEF(DUL,DE)
-           CALL PDDDD(II,KK)
-           CALL PDDES(DE,  DS,DR,de1,DK)
-      N1=NN+(II-1)*32+(KK-1)*8
-      DO 80 J=1,4
-   80 FP(N1+J)=DS(J)
-      DO 90 J=1,3
-   90 FP(N1+4+J)=DR(J)
-      FP(N1+8)=DK
-      IF(LL.NE.numiter) GO TO 45
-      sxx=sum(n1+1)
-      syy=sum(n1+2)
-      sxy=sum(n1+3)
-      dsxx=ds(1)
-      dsyy=ds(2)
-      dsxy=ds(3)
-      dexx=de(1)
-      deyy=de(2)
-      dexy=de(3)
-      www(kk,ii)=www(kk,ii)+((sxx+dsxx)*dexx+
-     +           2.0*(sxy+dsxy)*dexy+(syy+deyy)*deyy)/2.0
-      alambd(kk,ii)=alambd(kk,ii)+sqrt(de1(1)*de1(1)+de1(2)*de1(2)+
-     +           de1(3)*de1(3))
-           CALL PDST3(DR,DK)
-      N3=(II-1)*4+KK
-      DO I=1,LP
-           TCOM(LP*(N3-1)+I)=T(I)
+      DO I=1,NN
+        AA1(I)=RP(I)
       END DO
-   45 KK=KK+1
-      L2=L2+NTA
-   40 CONTINUE
+      CALL PDFOR(NN,0)
+      CALL PDSTRT(1,NN,NN,-1)
+      CALL PDBSUB(1,NN,0)
+      DO II=1,NEL
+        CALL PDELM(II,IG)
+        DO I=1,16
+          J=LEC(I)
+          UL(I)=SUM(J)
+          DUL(I)=AA1(J)
+        END DO
+        KK=1
+        DO M=1,2
+          DO N2=1,2
+            CALL PDCOB(X(M),X(N2),IG)
+            CALL PDDEF(DUL,DE)
+            CALL PDDDD(II,KK)
+            CALL PDDES(DE,  DS,DR,de1,DK)
+            N1=NN+(II-1)*32+(KK-1)*8
+            DO J=1,4
+              FP(N1+J)=DS(J)
+            END DO
+            DO J=1,3
+              FP(N1+4+J)=DR(J)
+            END DO
+            FP(N1+8)=DK
+            IF(LL.NE.numiter) GO TO 45
+            sxx=sum(n1+1)
+            syy=sum(n1+2)
+            sxy=sum(n1+3)
+            dsxx=ds(1)
+            dsyy=ds(2)
+            dsxy=ds(3)
+            dexx=de(1)
+            deyy=de(2)
+            dexy=de(3)
+            www(kk,ii)=www(kk,ii)+((sxx+dsxx)*dexx+
+     +           2.0*(sxy+dsxy)*dexy+(syy+deyy)*deyy)/2.0
+            alambd(kk,ii)=alambd(kk,ii)+sqrt(de1(1)*de1(1)+
+     +           de1(2)*de1(2)+de1(3)*de1(3))
+            CALL PDST3(DR,DK)
+            N3=(II-1)*4+KK
+            DO I=1,LP
+              TCOM(LP*(N3-1)+I)=T(I)
+            END DO
+   45       KK=KK+1
+            L2=L2+NTA
+          END DO
+        END DO
+      END DO
 C
       IF(LL.EQ.1) GO TO 20
       IF(L2.GT.0.AND.LL.LT.numiter) GOTO 20
 C
-      DO 110 I=1,NN
-  110 FP(I)=AA1(I)
+      DO I=1,NN
+        FP(I)=AA1(I)
+      END DO
 C
       PRINT 120,L2
   120 FORMAT(20X,'óàCãO ÄäíàÇçõï çÄèêÄÇãÖçàâ PABHO  ',I6/)
@@ -244,8 +264,9 @@ C----------------------------------------------------------------------
 C
       N1=LA(K1)
       N2=LA(K1+1)
-      DO 10 I=1,3
-   10 DA(I)=(A0(I,K1+1)-A0(I,K1))/(N2-N1)
+      DO I=1,3
+        DA(I)=(A0(I,K1+1)-A0(I,K1))/(N2-N1)
+      END DO
       IF(K.EQ.N2-1) K1=K1+1
       RETURN
       END SUBROUTINE PDSE
@@ -258,8 +279,9 @@ C----------------------------------------------------------------------
      */BLS/SUM(10000),FP(10000)
 C
       CALL PDFF(N)
-      DO 1 I=1,N
-    1 SUM(I)=SUM(I)+FP(I)
+      DO I=1,N
+        SUM(I)=SUM(I)+FP(I)
+      END DO
       RETURN
       END SUBROUTINE PDSOL
 C*****
@@ -278,8 +300,9 @@ C*****
       AN(6)=X1*X2*E2/2.0
       AN(8)=E1*E2*X1/2.0
       PDRR=0.0
-      DO 1 I=1,8
-    1 PDRR=PDRR+X(I)*AN(I)
+      DO I=1,8
+        PDRR=PDRR+X(I)*AN(I)
+      END DO
       RETURN
       END FUNCTION PDRR
 C*****
@@ -321,30 +344,36 @@ C
       NEL=NELX
       NNOD=NNODX
 C
-      DO 1 I=1,NNOD
-      DO 1 J=1,2
-    1 XYT(J,I)=XYTX(J,I)
+      DO I=1,NNOD
+        DO J=1,2
+          XYT(J,I)=XYTX(J,I)
+        END DO
+      END DO
 C
-      DO 2 I=1,NEL
-      DO 2 J=1,8
-    2 NC(J,I)=NCX(J,I)
+      DO I=1,NEL
+        DO J=1,8
+          NC(J,I)=NCX(J,I)
+        END DO
+      END DO
 C
       NZ=NZX
 C
-      DO 3 I=1,NZ
-    3 MZD(I)=MZDX(I)
+      DO I=1,NZ
+        MZD(I)=MZDX(I)
+      END DO
 C
       NEP=NEPX
       NEP1=NEP1X
 C
       N0=NEP+NEP1
-      DO 4 I=1,N0
-      LTEL(I)=LTELX(I)
-      LST(I)=LSTX(I)
-      DO 4 J=1,2
-      PT(J,I)=PTX(J,I)
-      PP(J,I)=PPX(J,I)
-    4 CONTINUE
+      DO I=1,N0
+        LTEL(I)=LTELX(I)
+        LST(I)=LSTX(I)
+        DO J=1,2
+          PT(J,I)=PTX(J,I)
+          PP(J,I)=PPX(J,I)
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE XBLOCK

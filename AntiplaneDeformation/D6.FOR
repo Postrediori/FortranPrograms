@@ -51,14 +51,15 @@ C
       XEN(1,8)=-XEN(1,4)
       XEN(2,8)=-ET*X1
 C
-      DO 10 I=1,7,2
-      AN(I)=0.25*AN(I)
-      AN(I+1)=0.5*AN(I+1)
-      XEN(1,I)=0.25*XEN(1,I)
-   10 XEN(2,I)=0.25*XEN(2,I)
+      DO I=1,7,2
+        AN(I)=0.25*AN(I)
+        AN(I+1)=0.5*AN(I+1)
+        XEN(1,I)=0.25*XEN(1,I)
+        XEN(2,I)=0.25*XEN(2,I)
+      END DO
 C
       IF(IG) 14,14,11
-C
+C     > 0
    11 R=0.125*X1*X2*E1*E2
       Z=-0.25*XI*E1*E2
       T=-0.25*X1*X2*ET
@@ -73,19 +74,22 @@ C
       XEN(2,IG)=XEN(2,IG)-2*T
       XEN(1,J)=XEN(1,J)+Z
       XEN(2,J)=XEN(2,J)+T
-C
+C     <= 0
    14 R=0.0
       Z=0.0
-      DO 15 I=1,8
-      R=R+AN(I)*XY(I,1)
-      Z=Z+AN(I)*XY(I,2)
-   15 CONTINUE
+      DO I=1,8
+        R=R+AN(I)*XY(I,1)
+        Z=Z+AN(I)*XY(I,2)
+      END DO
 C
-      DO 20 I=1,2
-      DO 20 J=1,2
-      AJ(I,J)=0.0
-      DO 20 K=1,8
-   20 AJ(I,J)=AJ(I,J)+XEN(I,K)*XY(K,J)
+      DO I=1,2
+        DO J=1,2
+          AJ(I,J)=0.0
+          DO K=1,8
+            AJ(I,J)=AJ(I,J)+XEN(I,K)*XY(K,J)
+          END DO
+        END DO
+      END DO
 C
       do i=1,2
         do j=1,2
@@ -100,24 +104,30 @@ C
       AJ(2,2)=FK
       AJ(1,2)=-AJ(1,2)
       AJ(2,1)=-AJ(2,1)
-      DO 25 I=1,2
-      DO 25 J=1,2
-   25 AJ(I,J)=AJ(I,J)/DET
+      DO I=1,2
+        DO J=1,2
+          AJ(I,J)=AJ(I,J)/DET
+        END DO
+      END DO
 C
-      DO 30 I=1,2
-      DO 30 J=1,8
-   30 BT(I,J)=0.0
+      DO I=1,2
+        DO J=1,8
+          BT(I,J)=0.0
+        END DO
+      END DO
 C
-      DO 55 K=1,8
-      DNE(1)=XEN(1,K)
-      DNE(2)=XEN(2,K)
-           DO 35 I=1,2
-           DNY(I)=0.0
-           DO 35 J=1,2
-   35      DNY(I)=DNY(I)+AJ(I,J)*DNE(J)
-      BT(1,K)=DNY(1)
-      BT(2,K)=DNY(2)
-   55 CONTINUE
+      DO K=1,8
+        DNE(1)=XEN(1,K)
+        DNE(2)=XEN(2,K)
+        DO I=1,2
+          DNY(I)=0.0
+          DO J=1,2
+            DNY(I)=DNY(I)+AJ(I,J)*DNE(J)
+          END DO
+        END DO
+        BT(1,K)=DNY(1)
+        BT(2,K)=DNY(2)
+      END DO
 C
       RETURN
       END SUBROUTINE APDCOB
@@ -147,32 +157,42 @@ C
       WRITE(6,1)
     1 FORMAT(//22X,'*** ‡A„A—A AHTˆ‹OCKO‰ „E”OPMA–ˆˆ ***')
 C
-      DO 2 I=1,NZ
-    2 AMZ(I)=0.0
+      DO I=1,NZ
+        AMZ(I)=0.0
+      END DO
 C
 C      ”OPMˆPOBAHˆE  HAƒP“‡Kˆ HA EPBOM “—ACTKE
 C
       IF(NEP.LE.0)  GOTO 3
-      DO 5 I=1,NNOD
-    5 A1(I)=0.0
-           CALL APDFOR(NNOD,0)
-      DO 6 I=1,NNOD
-    6 RP1(I)=A1(I)
+      DO I=1,NNOD
+        A1(I)=0.0
+      END DO
+C
+      CALL APDFOR(NNOD,0)
+C
+      DO I=1,NNOD
+        RP1(I)=A1(I)
+      END DO
 C
 C      ”OPMˆPOBAHˆE  HAƒP“‡Kˆ HA BTOPOM “—ACTKE
 C
     3 IF(NEP1.LE.0)  GOTO 4
-      DO 7 I=1,NEP1
-      LTEL(I)=LTEL(NEP+I)
-      LST(I)=LST(NEP+I)
-      PT(1,I)=PT(1,NEP+I)
-    7 PT(2,I)=PT(2,NEP+I)
+      DO I=1,NEP1
+        LTEL(I)=LTEL(NEP+I)
+        LST(I)=LST(NEP+I)
+        PT(1,I)=PT(1,NEP+I)
+        PT(2,I)=PT(2,NEP+I)
+      END DO
       NEP=NEP1
-      DO 8 I=1,NNOD
-    8 A1(I)=0.0
-           CALL APDFOR(NNOD,0)
-      DO 9 I=1,NNOD
-    9 RP2(I)=A1(I)
+      DO I=1,NNOD
+        A1(I)=0.0
+      END DO
+C
+      CALL APDFOR(NNOD,0)
+C
+      DO I=1,NNOD
+        RP2(I)=A1(I)
+      END DO
     4 CONTINUE
 C
       RETURN
@@ -207,9 +227,11 @@ C
 C----------
 C     “P“ƒOE „E”OPMˆPOBAHˆE
 C
-      DO 20 I=1,2
-      DO 20 J=1,2
-   20 DP(I,J)=0.0
+      DO I=1,2
+        DO J=1,2
+          DP(I,J)=0.0
+        END DO
+      END DO
 C
       GOTO 30
 C----------
@@ -221,30 +243,36 @@ C
       CALL APDAI(A1,A2,A3)
       AM1=A3/(A1+A3*OM)
 C
-      DO 40 I=1,2
-      DO 40 J=1,2
-      G(I,J)=G(I,J)-AM1*F(I)*F(J)
-      Z=0.0
-      IF(I.EQ.J) Z=1.0
-   40 G1(I,J)=Z+A2*G(I,J)/A1
+      DO I=1,2
+        DO J=1,2
+          G(I,J)=G(I,J)-AM1*F(I)*F(J)
+          Z=0.0
+          IF(I.EQ.J) Z=1.0
+          G1(I,J)=Z+A2*G(I,J)/A1
+        END DO
+      END DO
 C
       CALL APMATR(G1)
 C
-      DO 50 I=1,2
-      DO 50 J=1,2
-      DP(I,J)=0.0
-      DO 50 L=1,2
-   50 DP(I,J)=DP(I,J)+G1(I,L)*G(L,J)/A1
+      DO I=1,2
+        DO J=1,2
+          DP(I,J)=0.0
+          DO L=1,2
+            DP(I,J)=DP(I,J)+G1(I,L)*G(L,J)/A1
+          END DO
+        END DO
+      END DO
 C
 C----------
 C     ”OPMˆPOBAHˆE MATPˆ–› CBŸ‡ˆ ME†„“ TEH‡OPOM HAPŸ†EHˆŸ ˆ TEH‡OPOM
 C         „E”OPMA–ˆˆ „‹Ÿ “P“ƒOƒO ˆ ‹ACTˆ—ECKOƒO „E”OPMˆPOBAHˆŸ
-   30 DO 60 I=1,2
-      DO 60 J=1,2
-      Z=0.0
-      IF(I.EQ.J) Z=1.0
-      DD(I,J)=T0/ES*(Z-DP(I,J))
-   60 CONTINUE
+   30 DO I=1,2
+        DO J=1,2
+          Z=0.0
+          IF(I.EQ.J) Z=1.0
+          DD(I,J)=T0/ES*(Z-DP(I,J))
+        END DO
+      END DO
       RETURN
       END SUBROUTINE APDDP
 C*****
@@ -256,10 +284,12 @@ C----------------------------------------------------------------------
 C
       DIMENSION U(8),E(2)
 C
-      DO 1 I=1,2
-      E(I)=0.0
-      DO 1 J=1,8
-    1 E(I)=E(I)+B(I,J)*U(J)
+      DO I=1,2
+        E(I)=0.0
+        DO J=1,8
+          E(I)=E(I)+B(I,J)*U(J)
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE APDDEF
@@ -283,24 +313,26 @@ C
 C      “P“ƒOE „E”OPMˆPOBAHˆE
       IF(ITEOR.EQ.1.AND.NTA.GT.0) GOTO 10
       IF((ITEOR.EQ.2.OR.ITEOR.EQ.3).AND.AL.GE.alfa(kk,ii)) GOTO 10
-      DO 20 I=1,2
-      DS(I)=DE(I)*T0/ES
-      DR(I)=DE(I)
-      DE1(I)=0.0
-   20 CONTINUE
+      DO I=1,2
+        DS(I)=DE(I)*T0/ES
+        DR(I)=DE(I)
+        DE1(I)=0.0
+      END DO
       DK=0.0
       RETURN
 C
 C     ‹ACTˆ—ECKOE „E”OPMˆPOBAHˆE
 C
    10 DK=0.0
-      DO 30 I=1,2
-      DE1(I)=0.0
-      DO 40 J=1,2
-   40 DE1(I)=DE1(I)+DP(I,J)*DE(J)
-      DR(I)=DE(I)-A2*DE1(I)
-      DS(I)=(DE(I)-DE1(I))*T0/ES
-   30 DK=DK+F(I)*DR(I)*AM1
+      DO I=1,2
+        DE1(I)=0.0
+        DO J=1,2
+          DE1(I)=DE1(I)+DP(I,J)*DE(J)
+        END DO
+        DR(I)=DE(I)-A2*DE1(I)
+        DS(I)=(DE(I)-DE1(I))*T0/ES
+        DK=DK+F(I)*DR(I)*AM1
+      END DO
       RETURN
       END SUBROUTINE APDES
 C*****
@@ -335,15 +367,17 @@ C----------------------------------------------------------------------
      */BL7/XY(8,2),AKT(8,8)
      */BL15/JIN(8)
 C
-      DO 1 K=1,8
-   1  JIN(K)=NC(K,II)
+      DO K=1,8
+        JIN(K)=NC(K,II)
+      END DO
 C
       CALL APDDGN(IG,JIN)
 C
-      DO 2 K=1,8
-      J=JIN(K)
-      XY(K,1)=XYT(1,J)
-   2  XY(K,2)=XYT(2,J)
+      DO K=1,8
+        J=JIN(K)
+        XY(K,1)=XYT(1,J)
+        XY(K,2)=XYT(2,J)
+      END DO
 C
       RETURN
       END SUBROUTINE APDELM
@@ -367,14 +401,16 @@ C
       IF(IFF.EQ.0) GOTO 10
 C
       JJJ=LL*LH
-      DO 20 I=1,JJJ
-   20 A(I)=0.
+      DO I=1,JJJ
+        A(I)=0.
+      END DO
 C
    10 IP=1
-      DO 100 JJ=1,NEL
+      DO JJ=1,NEL
 C
-      DO 30 K=1,8
-   30 HPT(K)=0.0
+      DO K=1,8
+        HPT(K)=0.0
+      END DO
 C
       CALL APDELM(JJ,IG)
 C
@@ -384,42 +420,46 @@ C
 C
 C     ”OPMˆPOBAHˆE MATPˆ–› †ECTKOCTˆ CˆCTEM›
 C
-      DO 50 I=1,8
-      DO 50 J=1,8
-      I1=JIN(I)
-      J1=JIN(J)
-      IF(J1.LT.I1) GOTO 50
-      M=(I1-1)*LH+J1-I1+1
-      A(M)=A(M)+AK(I,J)
-   50 CONTINUE
+      DO I=1,8
+        DO J=1,8
+          I1=JIN(I)
+          J1=JIN(J)
+          IF(J1.LT.I1) CYCLE
+          M=(I1-1)*LH+J1-I1+1
+          A(M)=A(M)+AK(I,J)
+        END DO
+      END DO
       GOTO 100
 C
 C     ”OPMˆPOBAHˆE PABO‰ —ACTˆ OT PACPE„E‹EHHO‰ HAƒP“‡Kˆ
 C
    40 IF(NEP.LE.0)  GOTO 100
-      DO 60 J=1,5
-      IF(LTEL(IP)-JJ) 70,80,70
-   80 CALL APDPR(LST(IP),PT(1,IP),PT(2,IP),HPT)
-   60 IP=IP+1
+      DO J=1,5
+        IF(LTEL(IP)-JJ) 70,80,70
+   80   CALL APDPR(LST(IP),PT(1,IP),PT(2,IP),HPT)
+        IP=IP+1
+      END DO
 C
-   70 DO 90 J=1,8
-      M=JIN(J)
-   90 A1(M)=A1(M)+HPT(J)
+   70 DO J=1,8
+        M=JIN(J)
+        A1(M)=A1(M)+HPT(J)
+      END DO
 C
-  100 CONTINUE
+  100 END DO
 C
 C        †ECTKOE ‡AKPE‹EHˆE
 C
-      DO 95 I=1,NZ
-      IF(IFF.LE.0)  GOTO 85
-      M=(MZD(I)-1)*LH+1
-      J=M+LH-1
-      DO 86 K=M,J
-   86 A(K)=0.0
-      A(M)=1.0
-   85 M=MZD(I)
-      A1(M)=0.0
-   95 CONTINUE
+      DO I=1,NZ
+        IF(IFF.LE.0)  GOTO 85
+        M=(MZD(I)-1)*LH+1
+        J=M+LH-1
+        DO K=M,J
+          A(K)=0.0
+        END DO
+        A(M)=1.0
+   85   M=MZD(I)
+        A1(M)=0.0
+   95 END DO
       IF(IFF.LE.0) GOTO 115
       DO 116 I=1,LL
       DO 96 J=1,NZ
@@ -447,36 +487,45 @@ C
      *       -0.5,1.8660254,-0.5,0.1339746,
      *       0.1339746,-0.5,1.8660254,-0.5/
 C
-      DO 100 I=1,NNOD
-      SN(I)=0.0
-  100 LK(I)=0
+      DO I=1,NNOD
+        SN(I)=0.0
+        LK(I)=0
+      END DO
 C
-      DO 300 K=1,NEL
-        DO 1 I=1,8
-    1   NPT(I)=NC(I,K)
-      DO 300 I=1,4
-      N=NPT(2*I-1)
-      C=0.0
-        DO 200 J=1,4
-        II=4*(K-1)+J
-  200   C=C+T(I,J)*W(II)
-      SN(N)=SN(N)+C
-  300 LK(N)=LK(N)+1
+      DO K=1,NEL
+        DO I=1,8
+          NPT(I)=NC(I,K)
+        END DO
+        DO I=1,4
+          N=NPT(2*I-1)
+          C=0.0
+          DO J=1,4
+            II=4*(K-1)+J
+            C=C+T(I,J)*W(II)
+          END DO
+          SN(N)=SN(N)+C
+          LK(N)=LK(N)+1
+        END DO
+      END DO
 C
-      DO 600 K=1,NEL
-        DO 7 I=1,8
-    7   NPT(I)=NC(I,K)
-      DO 600 I=1,4
-      N=NPT(2*I-1)
-      J=2*I+1
-      IF(J.GT.8)J=1
-      N2=NPT(J)
-      N1=NPT(2*I)
-      SN(N1)=(SN(N)/LK(N)+SN(N2)/LK(N2))/2.
-  600 LK(N1)=1
+      DO K=1,NEL
+        DO I=1,8
+          NPT(I)=NC(I,K)
+        END DO
+        DO I=1,4
+          N=NPT(2*I-1)
+          J=2*I+1
+          IF(J.GT.8)J=1
+          N2=NPT(J)
+          N1=NPT(2*I)
+          SN(N1)=(SN(N)/LK(N)+SN(N2)/LK(N2))/2.
+          LK(N1)=1
+        END DO
+      END DO
 C
-      DO 800 I=1,NNOD
-  800 W(I)=SN(I)/LK(I)
+      DO I=1,NNOD
+        W(I)=SN(I)/LK(I)
+      END DO
 C
       RETURN
       END SUBROUTINE APDNOD
@@ -490,8 +539,9 @@ C----------------------------------------------------------------------
 C
       DIMENSION XP(3,2),AN(3),AH(8),XIN(3),X(3),C(3)
 C
-      DO 1 I=1,8
-    1 AH(I)=0.0
+      DO I=1,8
+        AH(I)=0.0
+      END DO
 C
       X(1)=-0.77459667
       X(2)=-X(1)
@@ -500,37 +550,40 @@ C
       C(2)=0.55555556
       C(3)=0.88888889
 C
-      DO 10 I=1,3
-      J=I+JS-1
-      IF(J.GT.8) J=1
-      XP(I,1)=XY(J,1)
-   10 XP(I,2)=XY(J,2)
+      DO I=1,3
+        J=I+JS-1
+        IF(J.GT.8) J=1
+        XP(I,1)=XY(J,1)
+        XP(I,2)=XY(J,2)
+      END DO
 C
-      DO 90 M=1,3
-      XI=X(M)
-      X1=1.0-XI
-      X2=1.0+XI
-      AN(1)=-0.5*X1*XI
-      AN(2)=X1*X2
-      AN(3)=0.5*X2*XI
-      XIN(1)=0.5*(2.0*XI-1.0)
-      XIN(2)=-2.0*XI
-      XIN(3)=0.5*(2.0*XI+1.0)
-      P=P1+0.5*(P2-P1)*(1.0+XI)
-      R=0.0
-      YS=0.0
-      XS=0.0
-           DO 20 I=1,3
-           R=R+AN(I)*XP(I,1)
-           YS=YS+XIN(I)*XP(I,2)
-   20      XS=XS+XIN(I)*XP(I,1)
-                DS=SQRT(XS*XS+YS*YS)
-                DO 80 I=1,3
-                J=(I+JS-1)
-                IF(J.GT.8) J=1
-                ANI=AN(I)*DS*P*C(M)
-  80            AH(J)=AH(J)+ANI
-  90  CONTINUE
+      DO M=1,3
+        XI=X(M)
+        X1=1.0-XI
+        X2=1.0+XI
+        AN(1)=-0.5*X1*XI
+        AN(2)=X1*X2
+        AN(3)=0.5*X2*XI
+        XIN(1)=0.5*(2.0*XI-1.0)
+        XIN(2)=-2.0*XI
+        XIN(3)=0.5*(2.0*XI+1.0)
+        P=P1+0.5*(P2-P1)*(1.0+XI)
+        R=0.0
+        YS=0.0
+        XS=0.0
+        DO I=1,3
+          R=R+AN(I)*XP(I,1)
+          YS=YS+XIN(I)*XP(I,2)
+          XS=XS+XIN(I)*XP(I,1)
+        END DO
+        DS=SQRT(XS*XS+YS*YS)
+        DO I=1,3
+          J=(I+JS-1)
+          IF(J.GT.8) J=1
+          ANI=AN(I)*DS*P*C(M)
+          AH(J)=AH(J)+ANI
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE APDPR
@@ -549,9 +602,10 @@ C*****
       AN(4)=E1*E2*X2/2.0
       AN(6)=X1*X2*E2/2.0
       AN(8)=E1*E2*X1/2.0
-                         APDRR=0.0
-                         DO 1 I=1,8
-    1                    APDRR=APDRR+X(I)*AN(I)
+      APDRR=0.0
+      DO I=1,8
+        APDRR=APDRR+X(I)*AN(I)
+      END DO
       RETURN
       END FUNCTION APDRR
 C*****
@@ -567,8 +621,9 @@ C----------------------------------------------------------------------
 C
       N1=LA(K1)
       N2=LA(K1+1)
-      DO 10 I=1,3
-   10 DA(I)=(A0(I,K1+1)-A0(I,K1))/(N2-N1)
+      DO I=1,3
+        DA(I)=(A0(I,K1+1)-A0(I,K1))/(N2-N1)
+      END DO
       IF(K.EQ.N2-1) K1=K1+1
 C
       RETURN
@@ -583,8 +638,9 @@ C----------------------------------------------------------------------
 C
       CALL APDFF(N)
 C
-      DO 1 I=1,N
-    1 SUM(I)=SUM(I)+FP(I)
+      DO I=1,N
+        SUM(I)=SUM(I)+FP(I)
+      END DO
 C
       RETURN
       END SUBROUTINE APDSOL
@@ -601,32 +657,41 @@ C----------------------------------------------------------------------
 C
       DIMENSION CC(8,2)
 C
-      DO 10 I=1,8
-      DO 10 J=1,8
-   10 AKT(I,J)=0.0
+      DO I=1,8
+        DO J=1,8
+          AKT(I,J)=0.0
+        END DO
+      END DO
 C
       KK=1
 C
-      DO 20 M=1,2
-      DO 20 N=1,2
+      DO M=1,2
+        DO N=1,2
 C
-      CALL APDCOB(X(M),X(N),IG)
-      CALL APDDDD(II,KK)
+          CALL APDCOB(X(M),X(N),IG)
+          CALL APDDDD(II,KK)
 C
-      DO 30 I=1,8
-      DO 30 J=1,2
-      CC(I,J)=0.0
-      DO 30 K=1,2
-   30 CC(I,J)=CC(I,J)+B(K,I)*DD(K,J)
+          DO I=1,8
+            DO J=1,2
+              CC(I,J)=0.0
+              DO K=1,2
+                CC(I,J)=CC(I,J)+B(K,I)*DD(K,J)
+              END DO
+            END DO
+          END DO
 C
-      DO 40 I=1,8
-      DO 40 J=1,8
-      DO 40 K=1,2
-   40 AKT(I,J)=AKT(I,J)+CC(I,K)*B(K,J)*C(M)*C(N)*DET
+          DO I=1,8
+            DO J=1,8
+              DO K=1,2
+                AKT(I,J)=AKT(I,J)+CC(I,K)*B(K,J)*C(M)*C(N)*DET
+              END DO
+            END DO
+          END DO
 C
-      KK=KK+1
+          KK=KK+1
 C
-   20 CONTINUE
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE APDST
@@ -639,10 +704,12 @@ C----------------------------------------------------------------------
      */BL9/DPO(2,2),DD(2,2)
      */BL14/EPS(2,4),SIG(2,4),UL(8)
 C
-      DO 1 I=1,2
-      SIG(I,K)=0.0
-      DO 1 J=1,2
-    1 SIG(I,K)=SIG(I,K)+EPS(J,K)*DD(I,J)
+      DO I=1,2
+        SIG(I,K)=0.0
+        DO J=1,2
+          SIG(I,K)=SIG(I,K)+EPS(J,K)*DD(I,J)
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE APDSTR
@@ -659,20 +726,23 @@ C
       N2=L1+N1
       MM=LH-1
 C
-         DO 40 I=M1,N1
+         DO I=M1,N1
             S=0.0
             IR=ID1
-            DO 10 M=1,MM
+            DO M=1,MM
                IR=IR+LH
                IF(IR-IDK)5,5,20
+C              > 0
+   20          EXIT
+C              <= 0
     5          II=ID1+M
                JJ=N2-I+M
                S=S+A(II)*A1(JJ)
-   10       CONTINUE
-   20       II=N2-I
+            END DO
+            II=N2-I
             A1(II)=(A1(II)-S)/A(ID1)
    30       ID1=ID1-LH
-   40    CONTINUE
+         END DO
 C
       RETURN
       END SUBROUTINE APDSUB
@@ -687,26 +757,31 @@ C
       IH1=LH-1
       L2=L1+N-1
 C
-      DO 40 I=L1,L2
+      DO I=L1,L2
          ID1=ID
-         DO 20 M1=1,IH1
+         DO M1=1,IH1
             ID1=ID1+LH
             IF(ID1-IDK) 5,5,30
+C           > 0
+   30       EXIT
+C           <= 0
     5       IF(IB) 7,7,15
+C           <= 0
     7       JJ=ID+M1
             IF(A(JJ).EQ.0.0)GO TO 15
             MM=IH1-M1+1
-            DO 10 M=1,MM
+            DO M=1,MM
                II=ID1+M-1
                KK=JJ+M-1
                A(II)=A(II)-A(JJ)/A(ID)*A(KK)
-   10       CONTINUE
+            END DO
+C           > 0
    15       II=I+M1
             JJ=ID+M1
             A1(II)=A1(II)-A(JJ)/A(ID)*A1(I)
-   20    CONTINUE
-   30 ID=ID+LH
-   40 CONTINUE
+         END DO
+         ID=ID+LH
+      END DO
 C
       RETURN
       END SUBROUTINE APDTRT
@@ -746,29 +821,35 @@ C
       NEL=NELX
       NNOD=NNODX
 C
-      DO 1 I=1,NNOD
-      DO 1 J=1,2
-    1 XYT(J,I)=XYTX(J,I)
+      DO I=1,NNOD
+        DO J=1,2
+          XYT(J,I)=XYTX(J,I)
+        END DO
+      END DO
 C
-      DO 2 I=1,NEL
-      DO 2 J=1,8
-    2 NC(J,I)=NCX(J,I)
+      DO I=1,NEL
+        DO J=1,8
+          NC(J,I)=NCX(J,I)
+        END DO
+      END DO
 C
       NZ=NZX
 C
-      DO 3 I=1,NZ
-    3 MZD(I)=MZDX(I)
+      DO I=1,NZ
+        MZD(I)=MZDX(I)
+      END DO
 C
       NEP=NEPX
       NEP1=NEP1X
 C
       N0=NEP+NEP1
-      DO 4 I=1,N0
-      LTEL(I)=LTELX(I)
-      LST(I)=LSTX(I)
-      DO 4 J=1,2
-      PT(J,I)=PPX(J,I)
-    4 CONTINUE
+      DO I=1,N0
+        LTEL(I)=LTELX(I)
+        LST(I)=LSTX(I)
+        DO J=1,2
+          PT(J,I)=PPX(J,I)
+        END DO
+      END DO
 C
       RETURN
       END SUBROUTINE XABLOC
@@ -792,23 +873,28 @@ C
 C
    10 IF(K.EQ.2) GO TO 20
       NZ=0
-      DO 1 L=1,3
-    1 NZ=NZ+MM(L)
+      DO L=1,3
+        NZ=NZ+MM(L)
+      END DO
       NZ=2*NZ+1
-      DO 2 L=1,NZ
-    2 MZD(L)=L
+      DO L=1,NZ
+        MZD(L)=L
+      END DO
       GO TO 50
 C
    20 NZ=0
-      DO 3 L=1,4
-    3 NZ=NZ+(2*NN(L)+1)
+      DO L=1,4
+        NZ=NZ+(2*NN(L)+1)
+      END DO
       N=0
-      DO 4 L=1,4
-      NNN=NN(L)*2+1
-      NF=3*(L-1)+1
-      DO 4 M=1,NNN
-      N=N+1
-    4 MZD(N)=NUF(NF,M)
+      DO L=1,4
+        NNN=NN(L)*2+1
+        NF=3*(L-1)+1
+        DO M=1,NNN
+          N=N+1
+          MZD(N)=NUF(NF,M)
+        END DO
+      END DO
 C
    50 RETURN
       END SUBROUTINE XABND

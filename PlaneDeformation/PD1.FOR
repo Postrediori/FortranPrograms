@@ -75,14 +75,16 @@ C
       end do
 C
   401 OPEN(7,FILE='XY.SAM')
-      DO 402 JI=1,NNOD
-  402 WRITE (7,403) XYT(1,JI),XYT(2,JI)
+      DO JI=1,NNOD
+         WRITE (7,403) XYT(1,JI),XYT(2,JI)
+      END DO
   403 FORMAT(5X,2F10.3)
       CLOSE(7)
       OPEN(7,FILE='NCM.SAM')
       JI1=1
-      DO 404 JI=1,NEL
-  404 WRITE (7,405) (NC(I,JI),I=1,8),JI1
+      DO JI=1,NEL
+         WRITE (7,405) (NC(I,JI),I=1,8),JI1
+      END DO
   405 FORMAT(5X,9I6)
       CLOSE(7)
       OPEN(7,FILE='INFO.SAM')
@@ -95,9 +97,10 @@ C
       CLOSE(7)
 C
       NSUM=NN+32*NEL
-      DO 80 I=1,NSUM
-      FP(I)=0.0
-   80 SUM(I)=0.0
+      DO I=1,NSUM
+        FP(I)=0.0
+        SUM(I)=0.0
+      END DO
 C
       CALL PDQQ
 C
@@ -124,22 +127,24 @@ C
       end do
 C
       NSUM=NN+32*NEL
-      DO 85 I=1,NSUM
-      FP(I)=0.0
-   85 SUM(I)=0.0
+      DO I=1,NSUM
+        FP(I)=0.0
+        SUM(I)=0.0
+      END DO
 C
       K1=1
       KP=LA(K2)-1
 C
-      DO 110 LOAD=1,KP
+      DO LOAD=1,KP
            PRINT 120,LOAD
   120      FORMAT(30X,'òAÉ',I3)
                 CALL PDSE(LOAD,DVS,LA,K1,A0)
-           DO 130 I=1,NN
-  130      RP(I)=RP1(I)*DVS(1)+RP2(I)*DVS(2)
+           DO I=1,NN
+             RP(I)=RP1(I)*DVS(1)+RP2(I)*DVS(2)
+           END DO
                 CALL PDSOL(NSUM)
                 CALL PDRES(0,0,0,0,0,0,0,0)
-  110 CONTINUE
+      END DO
 C
       CALL PDRES(1,ip,isx,isy,isxy,isi,iux,iuy)
 C
@@ -172,13 +177,15 @@ C
 C
       NN=NNOD*2
 C
-      DO 10 I=1,NN
-   10 A1(I)=0.0
+      DO I=1,NN
+        A1(I)=0.0
+      END DO
 C
 C     èPABAü óACTú
 C
-      DO 20 I=1,NN
-   20 A1(I)=RP1(I)*A0(1,K2)+RP2(I)*A0(2,K2)
+      DO I=1,NN
+        A1(I)=RP1(I)*A0(1,K2)+RP2(I)*A0(2,K2)
+      END DO
 C
       CALL PDFOR(NN,0)
       CALL PDSTRT(1,NN,NN,-1)
@@ -186,45 +193,54 @@ C
 C
 C     èOCTPOEHàE èOãEâ èEPEMEôEHàâ,ÑEîOPMAñàâ,HAèPüÜEHàâ
 C
-      DO 30 I=1,NN
-   30 SUM(I)=A1(I)
+      DO I=1,NN
+        SUM(I)=A1(I)
+      END DO
 C
-      DO 40 II=1,NEL
+      DO II=1,NEL
 c
-      CALL PDELM(II,IG)
+        CALL PDELM(II,IG)
 C
-      DO 50 I=1,16
-      J=LEC(I)
-   50 UL(I)=A1(J)
+        DO I=1,16
+          J=LEC(I)
+          UL(I)=A1(J)
+        END DO
 C
-      KK=1
-      DO 60 M=1,2
-      DO 60 N=1,2
+        KK=1
+        DO M=1,2
+          DO N=1,2
 C
-      CALL PDCOB(X(M),X(N),IG)
-      CALL PDDEF(UL,E)
+            CALL PDCOB(X(M),X(N),IG)
+            CALL PDDEF(UL,E)
 C
-      DO 70 I=1,4
-   70 EPS(I,KK)=E(I)
+            DO I=1,4
+              EPS(I,KK)=E(I)
+            END DO
 C
-      CALL PDDDD(II,KK)
-      CALL PDSTR(KK)
+            CALL PDDDD(II,KK)
+            CALL PDSTR(KK)
 C
-      DO 80 J=1,4
-   80 S(J)=SIG(J,KK)
-      CALL PDTEVE(E,R)
+            DO J=1,4
+              S(J)=SIG(J,KK)
+            END DO
+            CALL PDTEVE(E,R)
 C
-      nwww=2*(m-1)+n
-      www(nwww,ii)=www(nwww,ii)+(s(1)*e(1)+s(2)*e(2)+2.0*s(3)*e(3))/2.0
+            nwww=2*(m-1)+n
+            www(nwww,ii)=www(nwww,ii)+
+     +                   (s(1)*e(1)+s(2)*e(2)+2.0*s(3)*e(3))/2.0
 C
-      M1=NN+(II-1)*32+(KK-1)*8
-           DO 110 J=1,4
-  110      SUM(M1+J)=S(J)
-           DO 120 J=1,3
-  120      SUM(M1+4+J)=R(J)
-           SUM(M1+8)=0.0
-   60 KK=KK+1
-   40 CONTINUE
+            M1=NN+(II-1)*32+(KK-1)*8
+            DO J=1,4
+              SUM(M1+J)=S(J)
+            END DO
+            DO J=1,3
+              SUM(M1+4+J)=R(J)
+            END DO
+            SUM(M1+8)=0.0
+            KK=KK+1
+          END DO
+        END DO
+      END DO
       CALL PDRES(0,ip,isx,isy,isxy,isi,iux,iuy)
       RETURN
       END SUBROUTINE PDUPR
@@ -533,11 +549,13 @@ c	mzd(3)=2*(ncentr+2*kol+2*mm(3))
 C
    10 IF(K.EQ.2) GO TO 20
       NZ=0
-      DO 1 L=1,3
-    1 NZ=NZ+MM(L)
+      DO L=1,3
+        NZ=NZ+MM(L)
+      END DO
       nz=2*nz+1
-      DO 2 L=1,NZ
-    2 MZD(L)=2*L
+      DO L=1,NZ
+        MZD(L)=2*L
+      END DO
       NZ=NZ+1
       mzd(nz)=1
 c	nz=23
@@ -567,18 +585,21 @@ c	mzd(23)=287
       GO TO 50
 C
    20 NZ=0
-      DO 3 L=1,4
-    3 NZ=NZ+2*NN(L)
+      DO L=1,4
+        NZ=NZ+2*NN(L)
+      END DO
       NZ=NZ+2
       N=0
-      DO 4 L=1,4
-      NNN=NN(L)*2+1
-      NF=3*(L-1)+1
-      DO 4 M=2,NNN
-      N=N+1
-      m1=m
-      if(iprob.ne.3.and.l.eq.3.and.m.eq.2) m1=1
-    4 MZD(N)=2*NUF(NF,M1)-1-2
+      DO L=1,4
+        NNN=NN(L)*2+1
+        NF=3*(L-1)+1
+        DO M=2,NNN
+          N=N+1
+          m1=m
+          if(iprob.ne.3.and.l.eq.3.and.m.eq.2) m1=1
+          MZD(N)=2*NUF(NF,M1)-1-2
+        END DO
+      END DO
       mzd(n+1)=nnod*2-1
       mzd(n+2)=nnod*2
    50 RETURN
