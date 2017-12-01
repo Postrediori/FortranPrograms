@@ -6,10 +6,14 @@ IMPLICIT NONE
 
 
 REAL(8), EXTERNAL :: deter, Time
-REAL(8) s(3), e(3), ddd(3,3), Pi, SQ2, SQ3, h_a, x
+REAL(8) s(3), e(3), ddd(3,3), Pi, SQ2, SQ3, h_a, x, s0
 REAL(8), ALLOCATABLE :: tim(:), a0(:,:)
-INTEGER ncalk, k 
+INTEGER ncalk, k, k2, j
 INTEGER, ALLOCATABLE :: la(:)
+
+pi=ATAN(1.0D0)*4.0D0
+sq2=SQRT(2.0d0)
+sq3=SQRT(3.0d0)
 
 OPEN(1,FILE='trek.dat',STATUS='OLD')
 OPEN(2,FILE='TrekDeviator.dat')
@@ -20,9 +24,9 @@ READ(1,*)K2
 WRITE(2,*)k2
 ALLOCATE(a0(3,k2),la(k2),tim(k2))
 DO j=1,k2
-	READ(1,*)A0(:,J),LA(J), Tim(j)
+	READ(1,*)A0(:,J),LA(J)
 	s0=(A0(1,J)+A0(2,J)+A0(3,J))/3.0D0
-	WRITE(2,'(3(g15.5,1x),i4,g15.5)') (A0(1,J)-A0(2,J))/SQ2, (A0(3,J)-s0)*SQ3/SQ2, 0.0D0, LA(J), Tim(j)
+	WRITE(2,'(3(g15.5,1x),i4,g15.5)') (A0(1,J)-A0(2,J))/SQ2, (A0(3,J)-s0)*SQ3/SQ2, 0.0D0, LA(J)
 END DO
 CLOSE(1)
 CLOSE(2)
@@ -33,10 +37,7 @@ OPEN(1,FILE='plit.res')
 OPEN(2,FILE='plit.dat',STATUS='OLD')
 OPEN(3,FILE='trek.dat',STATUS='OLD')
 OPEN(4,FILE='text.res')
-OPEN(5,FILE='Matrix.res',STATUS='OLD')
-pi=ATAN(1.0D0)*4.0D0
-sq2=SQRT(2.0d0)
-sq3=SQRT(3.0d0)
+OPEN(5,FILE='trek.res',STATUS='OLD')
 !
 !     Plate geometrical parameters
 !
