@@ -1,0 +1,7 @@
+      1.0
+      1 1
+      1 1
+      READ(2,*)A_B
+      READ(2,*)mbig,mend
+      READ(2,*)nbig,nend
+
