@@ -1,6 +1,6 @@
 
 FC=gfortran
-FCFLAGS=-g -O0 -fno-bounds-check
+FCFLAGS=-std=legacy -g -O0 -fno-bounds-check
 
 SRCS=PD1.FOR PD2.FOR PD3.FOR PD4.FOR PD5.FOR PD6.FOR PD7.FOR PD8.FOR PD9.FOR
 OBJS=$(SRCS:.FOR=.o)
